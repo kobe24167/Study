@@ -6,7 +6,7 @@
 
 ### 问题：  
   * AOP的实现原理
-  * Spring注解的原理[链接]https://github.com/kobe24167/Study/blob/master/Spring/Annotation.md
+  * Spring注解的原理[链接](https://github.com/kobe24167/Study/blob/master/String/Annotation.md)
   * 拦截器
   * Spring代码结构
   * Spring组件
