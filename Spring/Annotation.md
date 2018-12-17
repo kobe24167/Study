@@ -36,7 +36,74 @@ public @interface Target {
 ### @Document：说明该注解将被包含在javadoc中
 ### @Inherited：说明子类可以继承父类中的该注解
   
+## Java自定义注解例子
+### 新建一个自定义注解：
+```Java
+@Retention(RetentionPolicy.RUNTIME)
+@Inherited
+@Documented
+@Target({ElementType.FIELD,ElementType.METHOD})
+@interface MyAnno{
+    public String name() default "zhangsan";
+    public String email() default "hello@example.com";
+}
+```
+### 定义一个User类，来使用自定义注解：
+```Java
+class  User{
+
+    @MyAnno(name = "zhang")
+    private String name;
+
+    @MyAnno(name = "zhang@example.com")
+    private String email;
 
 
-通过反射找到  
-Aes  
+    @MyAnno(name = "sayHelloWorld")
+    public String sayHello(){
+        return "";
+    }
+}
+```
+### 通过反射获取注解信息：
+```Java
+Method[] methods = User.class.getMethods();
+//Field[] fields = User.class.getFields();
+Field[] fields = User.class.getDeclaredFields();
+/*
+    getFields：只能访问public属性及继承到的public属性
+    getDeclaredFields：只能访问到本类的属性，不能访问继承到的属性
+
+    getMethods：只能访问public方法及继承到的public方法
+    getDeclaredMethods：只能访问到本类的方法，不能访问继承到的方法
+
+    getConstructors：只能访问public构造函数及继承到的public构造函数
+    getDeclaredConstructors：只能访问到本类的构造函数，不能访问继承到的构造函数
+*/
+
+for (Field field : fields) {
+    MyAnno annotation = field.getAnnotation(MyAnno.class);
+    if(annotation!=null){
+        System.out.println("property="+annotation.name());
+    }
+}
+for (Method method : methods) {
+    MyAnno annotation = method.getAnnotation(MyAnno.class);
+    if(annotation!=null){
+        System.out.println("sayHello="+annotation.name());
+    }
+}
+```
+## 注解元素的默认值
+注解元素必须有确定的值，要么制定定义时指定，要么使用注解时指定
+```Java
+	public int id() default -1;
+```
+
+原文地址：https://blog.csdn.net/bluuusea/article/details/79996572
+
+## 注解处理器
+定义了注解，必须有配套的注解处理器，通常都是通过Class对象配合反射机制来处理；网上和各种教科书中很多例子。
+https://race604.com/annotation-processing/  
+http://ifeve.com/java-8-features-tutorial/  
+http://www.infoq.com/cn/articles/Type-Annotations-in-Java-8  
