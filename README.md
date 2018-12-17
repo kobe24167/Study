@@ -10,7 +10,7 @@
   * 拦截器
   * Spring代码结构
   * Spring组件
-  * [SpringMVC到Spring Boot过程和心得](https://github.com/kobe24167/Study/blob/master/Spring/Annotation.md)
+  * [SpringMVC到Spring Boot过程和心得](https://github.com/kobe24167/Study/blob/master/Spring/MVC-boot.md)
 
 
   
