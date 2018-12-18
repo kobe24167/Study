@@ -1,0 +1,13 @@
+{"services": [
+    {
+        "name": "javax.annotation.processing.Processor",
+        "providers": [
+            {
+                "name": "spring-bean-reference",
+                "values": {
+                    "value": "com.exmaple.processor.LogProcessor"
+                }
+            }
+        ]
+    }
+]}
