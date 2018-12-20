@@ -16,3 +16,6 @@
   * 打包配置resources文件进入jar包
   * 打包配置删除resources下的class及mybatis xml
   * 配置jar包下拦截器
+  * 删除拦截器、和filter，改用Spring tag
+  * 调整login页面路径
+  * 打包后页面找不到

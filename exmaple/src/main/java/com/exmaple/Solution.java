@@ -1,10 +1,13 @@
-package com.leetCode;
+package com.exmaple;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.exmaple.annotation.Log;
 
+@Service
 public class Solution {
 
 	public static void main(String[] args) {
@@ -13,7 +16,7 @@ public class Solution {
 		twoSum(nums, target);
 	}
 
-	@Log(difficult=1, executionTime="执行用时: 127 ms, 在Two Sum的Java提交中击败了4.05% 的用户")
+	@Log(name="twoSum", difficult=1, executionTime="执行用时: 127 ms, 在Two Sum的Java提交中击败了4.05% 的用户")
 	public static int[] twoSum(int[] nums, int target) {
 		for (int i = 0; i < nums.length; i++) {
 			for (int j = 0; j < nums.length; j++) {
@@ -26,6 +29,7 @@ public class Solution {
 		return null;
 	}
 	
+	@Log(name="twoSum", difficult=1, executionTime="执行用时: 127 ms, 在Two Sum的Java提交中击败了4.05% 的用户")
 	public int[] twoSumExmaple(int[] nums, int target) {
 	    Map<Integer, Integer> map = new HashMap<>();
 	    for (int i = 0; i < nums.length; i++) {

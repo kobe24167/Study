@@ -8,6 +8,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import com.exmaple.annotation.Log;
+import com.google.gson.Gson;
 
 /**
  * @author sam
@@ -29,22 +30,22 @@ public class MyLogAspect {
      * 在方法执行前后
      *
      * @param point
-     * @param myLog
+     * @param log
      * @return
      */
-    @Around(value = "pointcut() && @annotation(myLog)")
-    public Object around(ProceedingJoinPoint point, Log myLog) {
+    @Around(value = "pointcut() && @annotation(log)")
+    public Object around(ProceedingJoinPoint point, Log log) {
 
         System.out.println("++++执行了around方法++++");
 
-        String requestUrl = myLog.name();
+        String requestUrl = log.name();
 
         //拦截的类名
         Class clazz = point.getTarget().getClass();
         //拦截的方法
         Method method = ((MethodSignature) point.getSignature()).getMethod();
-
         System.out.println("执行了 类:" + clazz + " 方法:" + method + " 自定义请求地址:" + requestUrl);
+        System.out.println("参数:" + new Gson().toJson(point.getArgs()));
 
         try {
             return point.proceed(); //执行程序
@@ -58,19 +59,19 @@ public class MyLogAspect {
      * 方法执行后
      *
      * @param joinPoint
-     * @param myLog
+     * @param log
      * @param result
      * @return
      */
-    @AfterReturning(value = "pointcut() && @annotation(myLog)", returning = "result")
-    public Object afterReturning(JoinPoint joinPoint, Log myLog, Object result) {
+    @AfterReturning(value = "pointcut() && @annotation(log)", returning = "result")
+    public Object afterReturning(JoinPoint joinPoint, Log log, Object result) {
 
 //        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 //        HttpSession session = request.getSession();
 
         System.out.println("++++执行了afterReturning方法++++");
 
-        System.out.println("执行结果：" + result);
+        System.out.println("执行结果：" + new Gson().toJson(result));
 
         return result;
     }
@@ -79,13 +80,13 @@ public class MyLogAspect {
      * 方法执行后 并抛出异常
      *
      * @param joinPoint
-     * @param myLog
+     * @param log
      * @param ex
      */
-    @AfterThrowing(value = "pointcut() && @annotation(myLog)", throwing = "ex")
-    public void afterThrowing(JoinPoint joinPoint, Log myLog, Exception ex) {
+    @AfterThrowing(value = "pointcut() && @annotation(log)", throwing = "ex")
+    public void afterThrowing(JoinPoint joinPoint, Log log, Exception ex) {
         System.out.println("++++执行了afterThrowing方法++++");
-        System.out.println("请求：" + myLog.name() + " 出现异常");
+        System.out.println("请求：" + log.name() + " 出现异常");
     }
 
 }
