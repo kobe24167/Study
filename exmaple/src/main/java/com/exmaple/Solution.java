@@ -1,8 +1,9 @@
 package com.exmaple;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -15,15 +16,35 @@ public class Solution {
 //		int[] nums = { 2, 7, 11, 15 };
 //		int target = 9;
 //		twoSum(nums, target);
-		ListNode l1 = new ListNode(2);
-		insert(insert(l1, 4), 3);
-		ListNode l2 = new ListNode(5);
-		insert(insert(l2, 6), 4);
-		ListNode l3 = new ListNode(9);
-		insert(l3, 9);
-		ListNode l4 = new ListNode(5);
-		ListNode l5 = new ListNode(5);
-		System.out.println(addTwoNumbers(l5, l4).val);
+//		ListNode l1 = new ListNode(2);
+//		insert(insert(l1, 4), 3);
+//		ListNode l2 = new ListNode(5);
+//		insert(insert(l2, 6), 4);
+//		ListNode l3 = new ListNode(9);
+//		insert(l3, 9);
+//		ListNode l4 = new ListNode(5);
+//		ListNode l5 = new ListNode(5);
+//		System.out.println(addTwoNumbers(l5, l4).val);
+		String str = "abcabcbb";
+		System.out.println(str);
+		System.out.println(lengthOfLongestSubstring(str));
+	}
+	
+	@Log(name = "lengthOfLongestSubstring", difficult = 2, description = "没解决")
+	public static int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        int ans = 0, i = 0, j = 0;
+        while (i < s.length() && j < s.length()) {
+            // try to extend the range [i, j]
+            if (!set.contains(s.charAt(j))){
+                set.add(s.charAt(j++));
+                ans = Math.max(ans, j - i);
+            }
+            else {
+                set.remove(s.charAt(i++));
+            }
+        }
+        return ans;
 	}
 
 	@Log(name = "twoSum", difficult = 1, executionTime = "执行用时: 127 ms, 在Two Sum的Java提交中击败了4.05% 的用户")
@@ -51,12 +72,12 @@ public class Solution {
 		}
 		throw new IllegalArgumentException("No two sum solution");
 	}
-	
-    public static ListNode insert(ListNode old, int value){
-    	ListNode node = new ListNode(value);
-    	old.next = node;
-    	return node;
-    }
+
+	public static ListNode insert(ListNode old, int value) {
+		ListNode node = new ListNode(value);
+		old.next = node;
+		return node;
+	}
 
 	public static class ListNode {
 		int val;
@@ -72,13 +93,15 @@ public class Solution {
 		ListNode s = reservePrt(l1, l2);
 		return s;
 	}
+
 	static int carry = 0;
-	public static ListNode reservePrt(ListNode node1, ListNode node2){
-		if (node1 != null && node2 != null ) {
-			int s = node1.val+node2.val+carry;
+
+	public static ListNode reservePrt(ListNode node1, ListNode node2) {
+		if (node1 != null && node2 != null) {
+			int s = node1.val + node2.val + carry;
 			ListNode node;
-			if(s >= 10){
-				node = new ListNode(s-10);
+			if (s >= 10) {
+				node = new ListNode(s - 10);
 				carry = 1;
 			} else {
 				node = new ListNode(s);
@@ -87,10 +110,10 @@ public class Solution {
 			node.next = reservePrt(node1.next, node2.next);
 			return node;
 		} else if (node1 != null) {
-			int s = node1.val+carry;
+			int s = node1.val + carry;
 			ListNode node;
-			if(s >= 10){
-				node = new ListNode(s-10);
+			if (s >= 10) {
+				node = new ListNode(s - 10);
 				carry = 1;
 			} else {
 				node = new ListNode(s);
@@ -99,10 +122,10 @@ public class Solution {
 			node.next = reservePrt(node1.next, null);
 			return node;
 		} else if (node2 != null) {
-			int s = node2.val+carry;
+			int s = node2.val + carry;
 			ListNode node;
-			if(s >= 10){
-				node = new ListNode(s-10);
+			if (s >= 10) {
+				node = new ListNode(s - 10);
 				carry = 1;
 			} else {
 				node = new ListNode(s);
@@ -115,26 +138,27 @@ public class Solution {
 			return new ListNode(carry);
 		}
 		return null;
-    }
-	
-	public ListNode addTwoNumbersExmaple(ListNode l1, ListNode l2) {
-	    ListNode dummyHead = new ListNode(0);
-	    ListNode p = l1, q = l2, curr = dummyHead;
-	    int carry = 0;
-	    while (p != null || q != null) {
-	        int x = (p != null) ? p.val : 0;
-	        int y = (q != null) ? q.val : 0;
-	        int sum = carry + x + y;
-	        carry = sum / 10;
-	        curr.next = new ListNode(sum % 10);
-	        curr = curr.next;
-	        if (p != null) p = p.next;
-	        if (q != null) q = q.next;
-	    }
-	    if (carry > 0) {
-	        curr.next = new ListNode(carry);
-	    }
-	    return dummyHead.next;
 	}
 
+	public ListNode addTwoNumbersExmaple(ListNode l1, ListNode l2) {
+		ListNode dummyHead = new ListNode(0);
+		ListNode p = l1, q = l2, curr = dummyHead;
+		int carry = 0;
+		while (p != null || q != null) {
+			int x = (p != null) ? p.val : 0;
+			int y = (q != null) ? q.val : 0;
+			int sum = carry + x + y;
+			carry = sum / 10;
+			curr.next = new ListNode(sum % 10);
+			curr = curr.next;
+			if (p != null)
+				p = p.next;
+			if (q != null)
+				q = q.next;
+		}
+		if (carry > 0) {
+			curr.next = new ListNode(carry);
+		}
+		return dummyHead.next;
+	}
 }
