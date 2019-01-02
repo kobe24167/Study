@@ -39,7 +39,6 @@
   * 删除工程中同名的类
   * 调整日志级别，打印sql
   ```Java
-  ```
 	logging.level.com.test.*.mapping=DEBUG
   ```
   * 打包成jar
