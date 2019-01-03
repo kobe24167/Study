@@ -201,3 +201,12 @@ public class LoginController {
   ```
   * maven项目编译后没有生成target/class文件
   * 设置Spring boot启动端口
+  ```Java
+  server.port=8080
+  ```
+  * 同时两个SpringBoot项目放在Tomcat下启动，第二个项目会报unable to register MBean
+  ```Java
+  解决方法：
+  在SpringBoot项目中配置文件加上
+  spring.jmx.enabled=false
+  ```
