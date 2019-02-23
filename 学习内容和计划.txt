@@ -38,7 +38,11 @@ ZK
 ES
 ELK
 
-今晚目标
 搭建一套微服务框架
 使用zookeeper
+使用dubbo
+使用zk
+学习es
+搭建es
+使用es
 

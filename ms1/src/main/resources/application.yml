@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /ms1
+  port: 8001
+spring:
+  application:
+    name: ms1

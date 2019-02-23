@@ -53,3 +53,10 @@ bin/kafka-console-producer.sh --broker-list 130.51.23.95:9092 --topic my-replica
 
 消费者：
 bin/kafka-console-consumer.sh --zookeeper 130.51.23.95:2181 --topic test --from-beginnin
+
+
+
+zipkin命令
+curl -sSL https://zipkin.io/quickstart.sh | bash -s
+java -jar zipkin.jar
+STORAGE_TYPE=mysql MYSQL_HOST=116.196.97.97 MYSQL_TCP_PORT=3306 MYSQL_DB=zipkin MYSQL_USER=root MYSQL_PASS=Wincor2008 nohup java -jar zipkin.jar &
