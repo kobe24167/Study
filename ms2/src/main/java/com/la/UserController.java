@@ -1,4 +1,4 @@
-package com.la.ms2;
+package com.la;
 
 import java.util.Date;
 

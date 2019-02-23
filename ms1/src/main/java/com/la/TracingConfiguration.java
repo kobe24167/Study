@@ -1,4 +1,4 @@
-package com.la.ms1;
+package com.la;
 
 import javax.servlet.Filter;
 

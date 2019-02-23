@@ -82,14 +82,14 @@
 			<groupId>io.zipkin.reporter2</groupId>
 			<artifactId>zipkin-sender-okhttp3</artifactId>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/io.zipkin.brave/brave-spancollector-http -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
 			<artifactId>brave-spancollector-http</artifactId>
 			<version>4.13.6</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/io.zipkin.brave/brave-web-servlet-filter -->
 		<dependency>
 			<groupId>io.zipkin.brave</groupId>
@@ -103,6 +103,34 @@
 			<artifactId>brave-okhttp</artifactId>
 			<version>4.13.6</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.la</groupId>
+			<artifactId>msApi</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		 <dependency>
+            <groupId>io.dubbo.springboot</groupId>
+            <artifactId>spring-boot-starter-dubbo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.13</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
 	</dependencies>
 
 
