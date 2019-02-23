@@ -1,5 +1,21 @@
 package com.la.ms1;
 
+import javax.servlet.Filter;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 import brave.CurrentSpanCustomizer;
 import brave.SpanCustomizer;
 import brave.Tracing;
@@ -11,20 +27,6 @@ import brave.propagation.ExtraFieldPropagation;
 import brave.propagation.ThreadLocalCurrentTraceContext;
 import brave.servlet.TracingFilter;
 import brave.spring.webmvc.SpanCustomizingAsyncHandlerInterceptor;
-import okhttp3.OkHttpClient;
-
-import javax.servlet.Filter;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateCustomizer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import zipkin2.Span;
 import zipkin2.reporter.AsyncReporter;
 import zipkin2.reporter.Sender;
@@ -109,8 +111,14 @@ public class TracingConfiguration extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(webMvcTracingCustomizer);
 	}
 	
+	@Autowired(required = false)
+	  HttpClient httpClient;
+	
 	@Bean
-	public OkHttpClient okHttpClient(Brave brave) {
-		
+	RestTemplate restTemplate() {
+		HttpClient httpClient = this.httpClient;
+		if (httpClient == null)
+			httpClient = HttpClients.createDefault();
+		return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
 	}
 }
