@@ -16,7 +16,6 @@
  */
 package org.apache.dubbo.spring.boot.demo.consumer.bootstrap;
 
-import org.apache.dubbo.config.annotation.Reference;
 import org.apache.dubbo.spring.boot.demo.consumer.DemoService;
 
 import org.slf4j.Logger;
@@ -26,6 +25,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
+import com.alibaba.dubbo.config.annotation.Reference;
+
 /**
  * Dubbo Registry ZooKeeper Consumer Bootstrap
  */
@@ -34,7 +35,7 @@ public class DubboRegistryZooKeeperConsumerBootstrap {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Reference(version = "${demo.service.version}")
+    @Reference(version = "${demo.service.version}", url = "${demo.service.url}")
     private DemoService demoService;
 
     public static void main(String[] args) {
