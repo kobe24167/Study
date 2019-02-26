@@ -1,3 +1,9 @@
+解压包
+tar -zxvf XXXX.tar.gz
+
+/opt/apache-tomcat-8.5.38/bin/shartup.sh
+
+
 环境变量
 修改profile文件
 vim /etc/profile
