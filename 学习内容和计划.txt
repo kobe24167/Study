@@ -64,4 +64,21 @@ redis记录session
 
 时间一周
 
+login数据库设计
+id
+mail
+name
+nick_name
+password
+mobile
+salt
+add_time
+last_login
+open_id
+union_id
+
+
+
+
+
 
