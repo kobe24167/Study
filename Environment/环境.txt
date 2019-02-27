@@ -1,0 +1,17 @@
+环境列表:
+server1:jd
+server2:阿里
+server3:AWS东京
+server4:AWS加利福尼亚
+
+ip地址：
+server1:116.196.97.97
+server2:101.132.132.108
+server3:13.231.244.205
+server4:54.183.7.127
+
+安装记录
+server1:
+jdk, zookeeper
+server2:
+jdk, zookeeper
