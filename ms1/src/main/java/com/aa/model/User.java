@@ -8,42 +8,23 @@ import lombok.Data;
 public class User {
     private Integer id;
 
-    private String mobilePhone;
-
     private String password;
 
-    private String sex;
+    private String mobile;
 
-    private Integer age;
+    private String mail;
 
-    private String englishName;
+    private String name;
 
-    private String realName;
+    private String nickName;
 
-    private String picNumber;
+    private String salt;
 
-    private String headPicture;
+    private String openId;
 
-    private Integer gradeid;
+    private String unionId;
 
-    private Integer shopid;
+    private Date addTime;
 
-    private Integer stateid;
-
-    private String addpersonphone;
-
-    private Date addtime;
-
-    private String percentage;
-
-    private String openid;
-
-    private String unionid;
-
-    private Integer offset;
-
-    private Integer level;
-
-    private Integer teachingOffset;
-
+    private Date lastTime;
 }

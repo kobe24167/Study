@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aa.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.aa.user.model.User" >
+  <resultMap id="BaseResultMap" type="com.aa.model.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="age" property="age" jdbcType="INTEGER" />
-    <result column="english_name" property="englishName" jdbcType="VARCHAR" />
-    <result column="real_name" property="realName" jdbcType="VARCHAR" />
-    <result column="pic_number" property="picNumber" jdbcType="VARCHAR" />
-    <result column="head_picture" property="headPicture" jdbcType="VARCHAR" />
-    <result column="gradeid" property="gradeid" jdbcType="INTEGER" />
-    <result column="shopid" property="shopid" jdbcType="INTEGER" />
-    <result column="stateId" property="stateid" jdbcType="INTEGER" />
-    <result column="addPersonPhone" property="addpersonphone" jdbcType="VARCHAR" />
-    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
-    <result column="percentage" property="percentage" jdbcType="VARCHAR" />
-    <result column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
-    <result column="offset" property="offset" jdbcType="INTEGER" />
-    <result column="level" property="level" jdbcType="INTEGER" />
-    <result column="teaching_offset" property="teachingOffset" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="mail" property="mail" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, mobile_phone, password, sex, age, english_name, real_name, pic_number, head_picture, 
-    gradeid, shopid, stateId, addPersonPhone, addTime, percentage, openid, unionid, offset, 
-    level, teaching_offset
+    id, password, mobile, mail, name, nick_name, salt, open_id, union_id, add_time, last_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -38,233 +27,137 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.aa.user.model.User" >
-    insert into user (id, mobile_phone, password, 
-      sex, age, english_name, 
-      real_name, pic_number, head_picture, 
-      gradeid, shopid, stateId, 
-      addPersonPhone, addTime, percentage, 
-      openid, unionid, offset, 
-      level, teaching_offset)
-    values (#{id,jdbcType=INTEGER}, #{mobilePhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{englishName,jdbcType=VARCHAR}, 
-      #{realName,jdbcType=VARCHAR}, #{picNumber,jdbcType=VARCHAR}, #{headPicture,jdbcType=VARCHAR}, 
-      #{gradeid,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}, #{stateid,jdbcType=INTEGER}, 
-      #{addpersonphone,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, #{percentage,jdbcType=VARCHAR}, 
-      #{openid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{offset,jdbcType=INTEGER}, 
-      #{level,jdbcType=INTEGER}, #{teachingOffset,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.aa.model.User" >
+    insert into user (id, password, mobile, 
+      mail, name, nick_name, 
+      salt, open_id, union_id, 
+      add_time, last_time)
+    values (#{id,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{mail,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{unionId,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.aa.user.model.User" >
+  <insert id="insertSelective" parameterType="com.aa.model.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="mobilePhone != null" >
-        mobile_phone,
-      </if>
       <if test="password != null" >
         password,
       </if>
-      <if test="sex != null" >
-        sex,
+      <if test="mobile != null" >
+        mobile,
       </if>
-      <if test="age != null" >
-        age,
+      <if test="mail != null" >
+        mail,
       </if>
-      <if test="englishName != null" >
-        english_name,
+      <if test="name != null" >
+        name,
       </if>
-      <if test="realName != null" >
-        real_name,
+      <if test="nickName != null" >
+        nick_name,
       </if>
-      <if test="picNumber != null" >
-        pic_number,
+      <if test="salt != null" >
+        salt,
       </if>
-      <if test="headPicture != null" >
-        head_picture,
+      <if test="openId != null" >
+        open_id,
       </if>
-      <if test="gradeid != null" >
-        gradeid,
+      <if test="unionId != null" >
+        union_id,
       </if>
-      <if test="shopid != null" >
-        shopid,
+      <if test="addTime != null" >
+        add_time,
       </if>
-      <if test="stateid != null" >
-        stateId,
-      </if>
-      <if test="addpersonphone != null" >
-        addPersonPhone,
-      </if>
-      <if test="addtime != null" >
-        addTime,
-      </if>
-      <if test="percentage != null" >
-        percentage,
-      </if>
-      <if test="openid != null" >
-        openid,
-      </if>
-      <if test="unionid != null" >
-        unionid,
-      </if>
-      <if test="offset != null" >
-        offset,
-      </if>
-      <if test="level != null" >
-        level,
-      </if>
-      <if test="teachingOffset != null" >
-        teaching_offset,
+      <if test="lastTime != null" >
+        last_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="mobilePhone != null" >
-        #{mobilePhone,jdbcType=VARCHAR},
-      </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
       </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
+      <if test="mail != null" >
+        #{mail,jdbcType=VARCHAR},
       </if>
-      <if test="englishName != null" >
-        #{englishName,jdbcType=VARCHAR},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="realName != null" >
-        #{realName,jdbcType=VARCHAR},
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="picNumber != null" >
-        #{picNumber,jdbcType=VARCHAR},
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="headPicture != null" >
-        #{headPicture,jdbcType=VARCHAR},
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
       </if>
-      <if test="gradeid != null" >
-        #{gradeid,jdbcType=INTEGER},
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
       </if>
-      <if test="shopid != null" >
-        #{shopid,jdbcType=INTEGER},
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="stateid != null" >
-        #{stateid,jdbcType=INTEGER},
-      </if>
-      <if test="addpersonphone != null" >
-        #{addpersonphone,jdbcType=VARCHAR},
-      </if>
-      <if test="addtime != null" >
-        #{addtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="percentage != null" >
-        #{percentage,jdbcType=VARCHAR},
-      </if>
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="unionid != null" >
-        #{unionid,jdbcType=VARCHAR},
-      </if>
-      <if test="offset != null" >
-        #{offset,jdbcType=INTEGER},
-      </if>
-      <if test="level != null" >
-        #{level,jdbcType=INTEGER},
-      </if>
-      <if test="teachingOffset != null" >
-        #{teachingOffset,jdbcType=INTEGER},
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aa.user.model.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.aa.model.User" >
     update user
     <set >
-      <if test="mobilePhone != null" >
-        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
-      </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=VARCHAR},
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
       </if>
-      <if test="age != null" >
-        age = #{age,jdbcType=INTEGER},
+      <if test="mail != null" >
+        mail = #{mail,jdbcType=VARCHAR},
       </if>
-      <if test="englishName != null" >
-        english_name = #{englishName,jdbcType=VARCHAR},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="realName != null" >
-        real_name = #{realName,jdbcType=VARCHAR},
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="picNumber != null" >
-        pic_number = #{picNumber,jdbcType=VARCHAR},
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
       </if>
-      <if test="headPicture != null" >
-        head_picture = #{headPicture,jdbcType=VARCHAR},
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
       </if>
-      <if test="gradeid != null" >
-        gradeid = #{gradeid,jdbcType=INTEGER},
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
       </if>
-      <if test="shopid != null" >
-        shopid = #{shopid,jdbcType=INTEGER},
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="stateid != null" >
-        stateId = #{stateid,jdbcType=INTEGER},
-      </if>
-      <if test="addpersonphone != null" >
-        addPersonPhone = #{addpersonphone,jdbcType=VARCHAR},
-      </if>
-      <if test="addtime != null" >
-        addTime = #{addtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="percentage != null" >
-        percentage = #{percentage,jdbcType=VARCHAR},
-      </if>
-      <if test="openid != null" >
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
-      <if test="unionid != null" >
-        unionid = #{unionid,jdbcType=VARCHAR},
-      </if>
-      <if test="offset != null" >
-        offset = #{offset,jdbcType=INTEGER},
-      </if>
-      <if test="level != null" >
-        level = #{level,jdbcType=INTEGER},
-      </if>
-      <if test="teachingOffset != null" >
-        teaching_offset = #{teachingOffset,jdbcType=INTEGER},
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aa.user.model.User" >
+  <update id="updateByPrimaryKey" parameterType="com.aa.model.User" >
     update user
-    set mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      english_name = #{englishName,jdbcType=VARCHAR},
-      real_name = #{realName,jdbcType=VARCHAR},
-      pic_number = #{picNumber,jdbcType=VARCHAR},
-      head_picture = #{headPicture,jdbcType=VARCHAR},
-      gradeid = #{gradeid,jdbcType=INTEGER},
-      shopid = #{shopid,jdbcType=INTEGER},
-      stateId = #{stateid,jdbcType=INTEGER},
-      addPersonPhone = #{addpersonphone,jdbcType=VARCHAR},
-      addTime = #{addtime,jdbcType=TIMESTAMP},
-      percentage = #{percentage,jdbcType=VARCHAR},
-      openid = #{openid,jdbcType=VARCHAR},
-      unionid = #{unionid,jdbcType=VARCHAR},
-      offset = #{offset,jdbcType=INTEGER},
-      level = #{level,jdbcType=INTEGER},
-      teaching_offset = #{teachingOffset,jdbcType=INTEGER}
+    set password = #{password,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      last_time = #{lastTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
