@@ -57,6 +57,7 @@ kafka集群
 zipkin检测
 elk记录日志
 数据库mysql集群
+读写分离，主备
 redis记录登录次数
 redis记录session
 监控节点状态，有报错
@@ -77,7 +78,10 @@ last_login
 open_id
 union_id
 
-
+git命令
+git add .
+git commit -m "Initial commit"
+git push -u origin master
 
 
 
