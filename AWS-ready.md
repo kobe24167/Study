@@ -20,8 +20,8 @@
   * 这时候就可以用root用户来操作了，如果想用root+密码登录，就继续。
   * 安装ssh
   ```Java
-  ```
   sudo apt-get install openssh-server
+  ```
   * 然后确认sshserver是否启动了：
   ```Java
   ps -e |grep ssh

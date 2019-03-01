@@ -15,6 +15,6 @@
   * 为什么使用Spring Boot之后快很多
   * [@Log实现](https://github.com/kobe24167/Study/tree/master/exmaple/src/main/java/com/exmaple/annotation)
   * [Spring Boot上传文件大小问题](https://github.com/kobe24167/Study/blob/master/Spring/SpringBootFileSize.md)
-  * [AWS初始搭建](https://github.com/kobe24167/Study/AWS-ready.md)
+  * [AWS初始搭建](https://github.com/kobe24167/Study/blob/master/AWS-ready.md)
 
   
