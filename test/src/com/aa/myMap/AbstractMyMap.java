@@ -170,22 +170,42 @@ public abstract class AbstractMyMap<K, V> implements MyMap<K, V> {
 		if (vals == null) {
 			vals = new AbstractCollection<V>() {
 				public Iterator<V> iterator() {
-					return new Iterator<V> {
+					return new Iterator<V>() {
 						private Iterator<MyMapEntry<K, V>> i = entrySet().iterator();
+						
 						public boolean hasNext() {
 							return i.hasNext();
 						}
+						
 						public V next() {
 							return i.next().getValue();
 						}
+						
 						public void remove() {
 							i.remove();
 						}
-					}
+					};
+				}
+
+				public int size() {
+					return AbstractMyMap.this.size();
+				}
+				
+				public boolean isEmpty() {
+					return AbstractMyMap.this.isEmpty();
+				}
+				
+				public void clear() {
+					AbstractMyMap.this.clear();
+				}
+				
+				public boolean contains(Object v) {
+					return AbstractMyMap.this.isContainsValue(v);
 				}
 			};
+			values = vals;
 		}
-		return null;
+		return vals;
 	}
 
 	

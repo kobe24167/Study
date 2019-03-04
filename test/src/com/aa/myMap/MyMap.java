@@ -27,6 +27,7 @@ public interface MyMap<K, V> {
 		V v;
 		return (((v = get(key)) != null) || isContainsKey(key)) ? v : defaultValue;
 	}
+	
 	default void forEach(BiConsumer<? super K, ? super V> action) {
 		Objects.requireNonNull(action);
 		for (MyMapEntry<K, V> entry : entrySet()) {
@@ -38,6 +39,7 @@ public interface MyMap<K, V> {
 			} catch (IllegalStateException ise) {
 				throw new ConcurrentModificationException(ise);
 			}
+			action.accept(k, v);
 		}
 	}
 	
