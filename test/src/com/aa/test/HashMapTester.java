@@ -3,6 +3,9 @@ package com.aa.test;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.aa.myMap.MyHashMap;
+import com.aa.myMap.MyMap;
+
 public class HashMapTester {
 	void test(){
 		Map<String, String> map = new HashMap<>();
@@ -10,15 +13,12 @@ public class HashMapTester {
 	}
 	
 	public static void main (String[] args) {
-		int MAXIMUM_CAPACITY = 1 << 30;
-		System.out.println(MAXIMUM_CAPACITY);
-		int cap = 1023;
-		int n = cap - 1;
-		n |= n >>> 1;
-		n |= n >>> 2;
-		n |= n >>> 4;
-		n |= n >>> 8;
-		n |= n >>> 16;
-		System.out.println(n);
+		MyMap<String, String> mymap = new MyHashMap<String, String>(5,5);
+		mymap.put("key1", "value1");
+		mymap.put("key1", "value3");
+		mymap.put("key2", "value2");
+		for (String value : mymap.values()) {
+			System.out.println(value);
+		}
 	}
 }

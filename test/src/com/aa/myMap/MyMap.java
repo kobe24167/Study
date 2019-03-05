@@ -167,6 +167,13 @@ public interface MyMap<K, V> {
         }
         return newValue;
     }
+	default V replace(K key, V value) {
+        V curValue;
+        if (((curValue = get(key)) != null) || isContainsKey(key)) {
+            curValue = put(key, value);
+        }
+        return curValue;
+    }
 	
 	
 	

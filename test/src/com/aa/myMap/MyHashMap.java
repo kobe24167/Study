@@ -9,29 +9,15 @@ import java.util.AbstractCollection;
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Spliterator;
-import java.util.HashMap.EntryIterator;
-import java.util.HashMap.EntrySet;
-import java.util.HashMap.EntrySpliterator;
-import java.util.HashMap.KeyIterator;
-import java.util.HashMap.KeySet;
-import java.util.HashMap.KeySpliterator;
-import java.util.HashMap.TreeNode;
-import java.util.HashMap.ValueIterator;
-import java.util.HashMap.ValueSpliterator;
-import java.util.HashMap.Values;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
-
-import com.aa.myMap.MyHashMap.Node;
 
 import sun.misc.SharedSecrets;
 
@@ -145,7 +131,7 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 	transient Node<K, V>[] table;
 	transient Set<MyMapEntry<K, V>> entrySet;
 	transient int size;
-	transient int modeCount;
+	transient int modCount;
 	int threshold;
 	final float loadFactor;
 
@@ -239,8 +225,7 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 		return putVal(hash(key), key, value, false, true);
 	}
 
-	// TODO need do
-	final V putVal(int hash, K key, V value, boolean onlyIfAbsnt, boolean evict) {
+	final V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
 		Node<K, V>[] tab;
 		Node<K, V> p;
 		int n, i;
@@ -253,7 +238,7 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 		} else {
 			Node<K, V> e;
 			K k;
-			if (p.hash = hash && ((k = p.key) == key || (key != null && key.equals(k)))) {
+			if (p.hash == hash && ((k = p.key) == key || (key != null && key.equals(k)))) {
 				e = p;
 			} else if (p instanceof MyTreeNode) {
 				e = ((MyTreeNode<K, V>) p).putTreeVal(this, tab, hash, key, value);
@@ -261,10 +246,28 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 				for (int binCount = 0;; ++binCount) {
 					if ((e = p.next) == null) {
 						p.next = newNode(hash, key, value, null);
+						if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+							treeifyBin(tab, hash);
+						break;
 					}
+					if (e.hash == hash && ((k = e.key) == key || (key != null && key.equals(k))))
+						break;
+					p = e;
 				}
 			}
+			if (e != null) { // existing mapping for key
+				V oldValue = e.value;
+				if (!onlyIfAbsent || oldValue == null)
+					e.value = value;
+				afterNodeAccess(e);
+				return oldValue;
+			}
 		}
+		++modCount;
+		if (++size > threshold)
+			resize();
+		afterNodeInsertion(evict);
+		return null;
 	}
 
 	final Node<K, V>[] resize() {
@@ -559,7 +562,7 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 
 		public final boolean remove(Object o) {
 			if (o instanceof MyMapEntry) {
-				Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
+				MyMapEntry<?, ?> e = (MyMapEntry<?, ?>) o;
 				Object key = e.getKey();
 				Object value = e.getValue();
 				return removeNode(hash(key), key, value, true, true) != null;
@@ -843,9 +846,9 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object clone() {
-		HashMap<K, V> result;
+		MyHashMap<K, V> result;
 		try {
-			result = (HashMap<K, V>) super.clone();
+			result = (MyHashMap<K, V>) super.clone();
 		} catch (CloneNotSupportedException e) {
 			// this shouldn't happen, since we are Cloneable
 			throw new InternalError(e);
@@ -896,7 +899,7 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 			// Check Map.Entry[].class since it's the nearest public type to
 			// what we're actually creating.
 			SharedSecrets.getJavaOISAccess().checkArray(s, MyMapEntry[].class, cap);
-			@SuppressWarnings({ "rawtypes", "unchecked" })
+			@SuppressWarnings({ "unchecked" })
 			Node<K, V>[] tab = (Node<K, V>[]) new Node[cap];
 			table = tab;
 
@@ -910,11 +913,351 @@ public class MyHashMap<K, V> extends AbstractMyMap<K, V> implements MyMap<K, V>,
 			}
 		}
 	}
-	
-	
+
+	abstract class HashIterator {
+		Node<K, V> next; // next entry to return
+		Node<K, V> current; // current entry
+		int expectedModCount; // for fast-fail
+		int index; // current slot
+
+		HashIterator() {
+			expectedModCount = modCount;
+			Node<K, V>[] t = table;
+			current = next = null;
+			index = 0;
+			if (t != null && size > 0) { // advance to first entry
+				do {
+				} while (index < t.length && (next = t[index++]) == null);
+			}
+		}
+
+		public final boolean hasNext() {
+			return next != null;
+		}
+
+		final Node<K, V> nextNode() {
+			Node<K, V>[] t;
+			Node<K, V> e = next;
+			if (modCount != expectedModCount)
+				throw new ConcurrentModificationException();
+			if (e == null)
+				throw new NoSuchElementException();
+			if ((next = (current = e).next) == null && (t = table) != null) {
+				do {
+				} while (index < t.length && (next = t[index++]) == null);
+			}
+			return e;
+		}
+
+		public final void remove() {
+			Node<K, V> p = current;
+			if (p == null)
+				throw new IllegalStateException();
+			if (modCount != expectedModCount)
+				throw new ConcurrentModificationException();
+			current = null;
+			K key = p.key;
+			removeNode(hash(key), key, null, false, false);
+			expectedModCount = modCount;
+		}
+	}
+
+	final class KeyIterator extends HashIterator implements Iterator<K> {
+		public final K next() {
+			return nextNode().key;
+		}
+	}
+
+	final class ValueIterator extends HashIterator implements Iterator<V> {
+		public final V next() {
+			return nextNode().value;
+		}
+	}
+
+	final class EntryIterator extends HashIterator implements Iterator<MyMapEntry<K, V>> {
+		public final MyMapEntry<K, V> next() {
+			return nextNode();
+		}
+	}
+
+	static class HashMapSpliterator<K, V> {
+		final MyHashMap<K, V> map;
+		Node<K, V> current; // current node
+		int index; // current index, modified on advance/split
+		int fence; // one past last index
+		int est; // size estimate
+		int expectedModCount; // for comodification checks
+
+		HashMapSpliterator(MyHashMap<K, V> m, int origin, int fence, int est, int expectedModCount) {
+			this.map = m;
+			this.index = origin;
+			this.fence = fence;
+			this.est = est;
+			this.expectedModCount = expectedModCount;
+		}
+
+		final int getFence() { // initialize fence and size on first use
+			int hi;
+			if ((hi = fence) < 0) {
+				MyHashMap<K, V> m = map;
+				est = m.size;
+				expectedModCount = m.modCount;
+				Node<K, V>[] tab = m.table;
+				hi = fence = (tab == null) ? 0 : tab.length;
+			}
+			return hi;
+		}
+
+		public final long estimateSize() {
+			getFence(); // force init
+			return (long) est;
+		}
+	}
+
+	static final class KeySpliterator<K, V> extends HashMapSpliterator<K, V> implements Spliterator<K> {
+		KeySpliterator(MyHashMap<K, V> m, int origin, int fence, int est, int expectedModCount) {
+			super(m, origin, fence, est, expectedModCount);
+		}
+
+		public KeySpliterator<K, V> trySplit() {
+			int hi = getFence(), lo = index, mid = (lo + hi) >>> 1;
+			return (lo >= mid || current != null) ? null
+					: new KeySpliterator<>(map, lo, index = mid, est >>>= 1, expectedModCount);
+		}
+
+		public void forEachRemaining(Consumer<? super K> action) {
+			int i, hi, mc;
+			if (action == null)
+				throw new NullPointerException();
+			MyHashMap<K, V> m = map;
+			Node<K, V>[] tab = m.table;
+			if ((hi = fence) < 0) {
+				mc = expectedModCount = m.modCount;
+				hi = fence = (tab == null) ? 0 : tab.length;
+			} else
+				mc = expectedModCount;
+			if (tab != null && tab.length >= hi && (i = index) >= 0 && (i < (index = hi) || current != null)) {
+				Node<K, V> p = current;
+				current = null;
+				do {
+					if (p == null)
+						p = tab[i++];
+					else {
+						action.accept(p.key);
+						p = p.next;
+					}
+				} while (p != null || i < hi);
+				if (m.modCount != mc)
+					throw new ConcurrentModificationException();
+			}
+		}
+
+		public boolean tryAdvance(Consumer<? super K> action) {
+			int hi;
+			if (action == null)
+				throw new NullPointerException();
+			Node<K, V>[] tab = map.table;
+			if (tab != null && tab.length >= (hi = getFence()) && index >= 0) {
+				while (current != null || index < hi) {
+					if (current == null)
+						current = tab[index++];
+					else {
+						K k = current.key;
+						current = current.next;
+						action.accept(k);
+						if (map.modCount != expectedModCount)
+							throw new ConcurrentModificationException();
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public int characteristics() {
+			return (fence < 0 || est == map.size ? Spliterator.SIZED : 0) | Spliterator.DISTINCT;
+		}
+	}
+
+	static final class ValueSpliterator<K, V> extends HashMapSpliterator<K, V> implements Spliterator<V> {
+		ValueSpliterator(MyHashMap<K, V> m, int origin, int fence, int est, int expectedModCount) {
+			super(m, origin, fence, est, expectedModCount);
+		}
+
+		public ValueSpliterator<K, V> trySplit() {
+			int hi = getFence(), lo = index, mid = (lo + hi) >>> 1;
+			return (lo >= mid || current != null) ? null
+					: new ValueSpliterator<>(map, lo, index = mid, est >>>= 1, expectedModCount);
+		}
+
+		public void forEachRemaining(Consumer<? super V> action) {
+			int i, hi, mc;
+			if (action == null)
+				throw new NullPointerException();
+			MyHashMap<K, V> m = map;
+			Node<K, V>[] tab = m.table;
+			if ((hi = fence) < 0) {
+				mc = expectedModCount = m.modCount;
+				hi = fence = (tab == null) ? 0 : tab.length;
+			} else
+				mc = expectedModCount;
+			if (tab != null && tab.length >= hi && (i = index) >= 0 && (i < (index = hi) || current != null)) {
+				Node<K, V> p = current;
+				current = null;
+				do {
+					if (p == null)
+						p = tab[i++];
+					else {
+						action.accept(p.value);
+						p = p.next;
+					}
+				} while (p != null || i < hi);
+				if (m.modCount != mc)
+					throw new ConcurrentModificationException();
+			}
+		}
+
+		public boolean tryAdvance(Consumer<? super V> action) {
+			int hi;
+			if (action == null)
+				throw new NullPointerException();
+			Node<K, V>[] tab = map.table;
+			if (tab != null && tab.length >= (hi = getFence()) && index >= 0) {
+				while (current != null || index < hi) {
+					if (current == null)
+						current = tab[index++];
+					else {
+						V v = current.value;
+						current = current.next;
+						action.accept(v);
+						if (map.modCount != expectedModCount)
+							throw new ConcurrentModificationException();
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public int characteristics() {
+			return (fence < 0 || est == map.size ? Spliterator.SIZED : 0);
+		}
+	}
+
+	static final class EntrySpliterator<K, V> extends HashMapSpliterator<K, V>
+			implements Spliterator<MyMapEntry<K, V>> {
+		EntrySpliterator(MyHashMap<K, V> m, int origin, int fence, int est, int expectedModCount) {
+			super(m, origin, fence, est, expectedModCount);
+		}
+
+		public EntrySpliterator<K, V> trySplit() {
+			int hi = getFence(), lo = index, mid = (lo + hi) >>> 1;
+			return (lo >= mid || current != null) ? null
+					: new EntrySpliterator<>(map, lo, index = mid, est >>>= 1, expectedModCount);
+		}
+
+		public void forEachRemaining(Consumer<? super MyMapEntry<K, V>> action) {
+			int i, hi, mc;
+			if (action == null)
+				throw new NullPointerException();
+			MyHashMap<K, V> m = map;
+			Node<K, V>[] tab = m.table;
+			if ((hi = fence) < 0) {
+				mc = expectedModCount = m.modCount;
+				hi = fence = (tab == null) ? 0 : tab.length;
+			} else
+				mc = expectedModCount;
+			if (tab != null && tab.length >= hi && (i = index) >= 0 && (i < (index = hi) || current != null)) {
+				Node<K, V> p = current;
+				current = null;
+				do {
+					if (p == null)
+						p = tab[i++];
+					else {
+						action.accept(p);
+						p = p.next;
+					}
+				} while (p != null || i < hi);
+				if (m.modCount != mc)
+					throw new ConcurrentModificationException();
+			}
+		}
+
+		public boolean tryAdvance(Consumer<? super MyMapEntry<K, V>> action) {
+			int hi;
+			if (action == null)
+				throw new NullPointerException();
+			Node<K, V>[] tab = map.table;
+			if (tab != null && tab.length >= (hi = getFence()) && index >= 0) {
+				while (current != null || index < hi) {
+					if (current == null)
+						current = tab[index++];
+					else {
+						Node<K, V> e = current;
+						current = current.next;
+						action.accept(e);
+						if (map.modCount != expectedModCount)
+							throw new ConcurrentModificationException();
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public int characteristics() {
+			return (fence < 0 || est == map.size ? Spliterator.SIZED : 0) | Spliterator.DISTINCT;
+		}
+	}
 
 	Node<K, V> newNode(int hash, K key, V value, Node<K, V> next) {
 		return new Node<>(hash, key, value, next);
+	}
+
+	Node<K, V> replacementNode(Node<K, V> p, Node<K, V> next) {
+		return new Node<>(p.hash, p.key, p.value, next);
+	}
+
+	// Create a tree bin node
+	MyTreeNode<K, V> newTreeNode(int hash, K key, V value, Node<K, V> next) {
+		return new MyTreeNode<>(hash, key, value, next);
+	}
+
+	// For treeifyBin
+	MyTreeNode<K, V> replacementTreeNode(Node<K, V> p, Node<K, V> next) {
+		return new MyTreeNode<>(p.hash, p.key, p.value, next);
+	}
+
+	void reinitialize() {
+		table = null;
+		entrySet = null;
+		keySet = null;
+		values = null;
+		modCount = 0;
+		threshold = 0;
+		size = 0;
+	}
+
+	void afterNodeAccess(Node<K, V> p) {
+	}
+
+	void afterNodeInsertion(boolean evict) {
+	}
+
+	void afterNodeRemoval(Node<K, V> p) {
+	}
+
+	// Called only from writeObject, to ensure compatible ordering.
+	void internalWriteEntries(java.io.ObjectOutputStream s) throws IOException {
+		Node<K, V>[] tab;
+		if (size > 0 && (tab = table) != null) {
+			for (int i = 0; i < tab.length; ++i) {
+				for (Node<K, V> e = tab[i]; e != null; e = e.next) {
+					s.writeObject(e.key);
+					s.writeObject(e.value);
+				}
+			}
+		}
 	}
 
 	public static class MyTreeNode<K, V> extends MyLinkedHashMap.Entry<K, V> {
