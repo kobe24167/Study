@@ -16,5 +16,8 @@
   * [@Log实现](https://github.com/kobe24167/Study/tree/master/exmaple/src/main/java/com/exmaple/annotation)
   * [Spring Boot上传文件大小问题](https://github.com/kobe24167/Study/blob/master/Spring/SpringBootFileSize.md)
   * [AWS初始搭建](https://github.com/kobe24167/Study/blob/master/AWS-ready.md)
-
+  * [Java1.8_HashMap源码学习](https://github.com/kobe24167/Study/blob/master/HashMap.md)
+  * Java是如何序列化
+  * 红黑树
+  * 
   
