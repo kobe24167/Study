@@ -22,7 +22,9 @@
 		e = p;
 	}
 ```
-##  迭代器的使用，红黑树左旋右旋，红黑树平衡
+##  迭代器iterator， Spliterator(多线程的情况下迭代同一个 HashMap)
+
+##  红黑树左旋右旋，红黑树平衡
 ##  transient的使用
 ```java
 	transient Node<K, V>[] table;
@@ -127,4 +129,4 @@
 	
 ##  延伸学习的内容
   * Java是如何序列化
-
+  * 红黑树

@@ -1,6 +1,8 @@
 package com.aa.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.aa.myMap.MyHashMap;
@@ -8,8 +10,12 @@ import com.aa.myMap.MyMap;
 
 public class HashMapTester {
 	void test(){
+		List<String> list = new ArrayList<>();
+		list.spliterator().trySplit();
+		
 		Map<String, String> map = new HashMap<>();
 		map.put("key1", "value1");
+		map.entrySet().spliterator();
 	}
 	
 	public static void main (String[] args) {
@@ -20,5 +26,8 @@ public class HashMapTester {
 		for (String value : mymap.values()) {
 			System.out.println(value);
 		}
+		
+		mymap.values();
+		
 	}
 }
