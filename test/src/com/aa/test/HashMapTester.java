@@ -21,6 +21,9 @@ public class HashMapTester {
 		
 		Map<String, String> ccHashMap = new ConcurrentHashMap<>();
 		ccHashMap.put("key2", "value2");
+		
+		Map<String, String> ccHashMap1 = new ConcurrentHashMap<>(16, 0.75f, 1);
+		ccHashMap1.put("key2", "value2");
 	}
 	
 	public static void main (String[] args) {
