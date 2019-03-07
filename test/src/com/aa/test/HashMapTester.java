@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.aa.myMap.MyHashMap;
 import com.aa.myMap.MyMap;
@@ -15,7 +16,11 @@ public class HashMapTester {
 		
 		Map<String, String> map = new HashMap<>();
 		map.put("key1", "value1");
+		map.put("key2", "value2");
 		map.entrySet().spliterator();
+		
+		Map<String, String> ccHashMap = new ConcurrentHashMap<>();
+		ccHashMap.put("key2", "value2");
 	}
 	
 	public static void main (String[] args) {
