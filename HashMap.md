@@ -22,8 +22,8 @@
 		e = p;
 	}
 ```
+##  扩容方法: n << 1,最多容纳Int.max个数组
 ##  迭代器iterator， Spliterator(多线程的情况下迭代同一个 HashMap)
-
 ##  红黑树左旋右旋，红黑树平衡
 ##  transient的使用
 ```java
