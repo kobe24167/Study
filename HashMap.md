@@ -2,8 +2,8 @@
 面试被问到很多次HashMap，面试后自己也是看了好多次，但总是没理解，这样好了，自己写下HashMap，从细节上理解它
 [MyHashMap](https://github.com/kobe24167/Study/blob/master/test/src/com/aa/myMap/MyHashMap.java)
 ##  重要的常量：
-	DEFAULT_INITIAL_CAPACITY 初始容量
-	DEFAULT_LOAD_FACTOR 加载因子
+	DEFAULT_INITIAL_CAPACITY 初始容量，默认16
+	DEFAULT_LOAD_FACTOR 加载因子，默认0.75
 	MAXIMUM_CAPACITY 最大容量是int的最大值，因为hashcode是int
 	TREEIFY_THRESHOLD 链转成红黑树的阈值
 ##  数据结构：
@@ -23,6 +23,10 @@
 	}
 ```
 ##  扩容方法: n << 1,最多容纳Int.max个数组
+	插入第12个，超出阈值（16*0.75），开始扩容
+##  加载因子大小问题
+	越大，链表或树上的节点越多，越难查找
+	越小，数组空的越多
 ##  迭代器iterator， Spliterator(多线程的情况下迭代同一个 HashMap)
 ##  红黑树左旋右旋，红黑树平衡
 ##  transient的使用
