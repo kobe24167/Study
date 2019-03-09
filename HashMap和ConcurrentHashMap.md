@@ -36,11 +36,16 @@
      * The bit shift for recording size stamp in sizeCtl.
      */
     private static final int RESIZE_STAMP_SHIFT = 32 - RESIZE_STAMP_BITS;
+	
+	static final int MOVED     = -1; // hash for forwarding nodes
+	
+	/** Number of CPUS, to place bounds on some sizings */
+    static final int NCPU = Runtime.getRuntime().availableProcessors();
 ```
 
 ##  初始化较为简单，先需要设置sizeCtl为-1，为了防止多线程操作重复初始化
 ```java
-		// 初始化的"功劳"被其他线程"抢去"了
+		// 初始化要靠sizeCtl锁一下
         if ((sc = sizeCtl) < 0)
             Thread.yield(); // lost initialization race; just spin
         // CAS 一下，将 sizeCtl 设置为 -1，代表抢到了锁
@@ -48,30 +53,21 @@
 		}
 ```
 
-##  扩容是原来大小乘2
-	加载因子是sc = n - (n >>> 2); // 0.75 * n
+##  扩容 总是2的N次方
+	
+	扩容是将原来数组里的元素分批，分成多个任务包，多次transfer到新的数组里
+	任务包中移动node的多少取决于数组大小和NCPU
+	stride = (NCPU > 1) ? (n >>> 3) / NCPU : n;
+	任务包最少有16个node，因为数组最少16个node，
+	在put、get、remove、treeifyBin时帮助进行transfer
+	
+	* transferIndex属性
+	扩容索引，表示已经分配给扩容线程的table数组索引位置。主要用来协调多个线程，并发安全地
+	获取迁移任务（hash桶）。
 	
 	
-	主要用到了如下的东西，记录是否被迁移
-```java
-	//ForwardingNode 翻译过来就是正在被迁移的 Node
-    //这个构造方法会生成一个Node，key、value 和 next 都为 null，关键是 hash 为 MOVED
-    //后面我们会看到，原数组中位置 i 处的节点完成迁移工作后，
-    //就会将位置 i 处设置为这个 ForwardingNode，用来告诉其他线程该位置已经处理过了
-    //所以它其实相当于是一个标志。
-    ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
-	
-	//ForwardingNode 保存了扩容后table的地址，在get的时候通过nextTable找到已经迁移的节点，
-	//如果新的table中的节点也被迁移了，同样道理，找到ForwardingNode中下一个table的地址，找到节点位置
-	static final class ForwardingNode<K,V> extends Node<K,V> {
-        final Node<K,V>[] nextTable;
-        ForwardingNode(Node<K,V>[] tab) {
-            super(MOVED, null, null, null);
-            this.nextTable = tab;
-        }
-	}
-```
-##  concurrencyLevel 并发数， JDK_7 最多可以同时支持 16 个线程并发写，JDK_8不是
+	具体请看[链接](https://blog.csdn.net/varyall/article/details/81283231)[链接2](http://www.importnew.com/28263.html)
+##  concurrencyLevel 并发数， JDK_7 最多可以同时支持 16 个线程并发写，JDK_8
 
 ##  数据结构：
 	数组
@@ -81,7 +77,7 @@
 ```java
 	if (key == null || value == null) throw new NullPointerException();
 ```
-##  hash不同
+##  hash不同，使用再hash减少hash冲突
 ```java
 	int hash = spread(key.hashCode());
 	
@@ -89,7 +85,10 @@
         return (h ^ (h >>> 16)) & HASH_BITS;
     }
 ```
-##  同步
+##  用到的锁，JDK7以前是分段锁，JDK8之后使用的是unsafe
+随处可以看到U, 大量使用了U.compareAndSwapXXX的方法，这个方法是利用一个CAS算法实现无锁化的修改值的操作，他可以大大降低锁代理的性能消耗。这个算法的基本思想就是不断地去比较当前内存中的变量值与你指定的一个变量值是否相等，如果相等，则接受你指定的修改的值，否则拒绝你的操作。因为当前线程中的值已经不是最新的值，你的修改很可能会覆盖掉其他线程修改的结果。这一点与乐观锁，SVN的思想是比较类似的。
+
+unsafe代码块控制了一些属性的修改工作，比如最常用的SIZECTL 。在这一版本的concurrentHashMap中，大量应用来的CAS方法进行变量、属性的修改工作。利用CAS进行无锁操作，可以大大提高性能。
 ```java
 	/**
      * Stripped-down version of helper class used in previous version,
@@ -100,9 +99,12 @@
         final float loadFactor;
         Segment(float lf) { this.loadFactor = lf; }
     }
+	
+	synchronized (f) {}
+	
+	volatile
 ```
 
 ##  延伸学习的内容
-  * volatile
-  * 扩容迁移的时候是单线程的循环，可能有多个迁移同时运行，那用n个cpu干嘛
-  * 迁移边界是什么
+  * volatile和synchronized
+  * volatile和synchronized场景

@@ -10,28 +10,47 @@ import com.aa.myMap.MyHashMap;
 import com.aa.myMap.MyMap;
 
 public class HashMapTester {
-	void test(){
+	void test() {
 		List<String> list = new ArrayList<>();
 		list.spliterator().trySplit();
-		
+
 		Map<String, String> map = new HashMap<>();
 		map.put("key1", "value1");
 		map.put("key2", "value2");
 		map.entrySet().spliterator();
-		
+
 		Map<String, String> ccHashMap = new ConcurrentHashMap<>();
 		ccHashMap.put("key2", "value2");
-		
+
 		Map<String, String> ccHashMap1 = new ConcurrentHashMap<>(16, 0.75f, 50);
 		ccHashMap1.put("key2", "value2");
 	}
-	
+
 	static final int HASH_BITS = 0x7fffffff; // usable bits of normal node hash
+
 	static final int spread(int h) {
-        return (h ^ (h >>> 16)) & HASH_BITS;
-    }
-	
-	public static void main (String[] args) {
+		return (h ^ (h >>> 16)) & HASH_BITS;
+	}
+
+	private static final int MAXIMUM_CAPACITY = 1 << 30;
+
+	/**
+	 * The default initial table capacity. Must be a power of 2 (i.e., at least 1)
+	 * and at most MAXIMUM_CAPACITY.
+	 */
+	private static final int DEFAULT_CAPACITY = 16;
+
+	private static final int tableSizeFor(int c) {
+		int n = c - 1;
+		n |= n >>> 1;
+		n |= n >>> 2;
+		n |= n >>> 4;
+		n |= n >>> 8;
+		n |= n >>> 16;
+		return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+	}
+
+	public static void main(String[] args) {
 		MyMap<String, String> mymap = new MyHashMap<String, String>();
 //		for (int i = 0; i < 550; i++) {
 //			System.out.println("²åÈëµÚ: "+i+"¸ö");
@@ -40,28 +59,37 @@ public class HashMapTester {
 //		for (String value : mymap.values()) {
 //			System.out.println(value);
 //		}
-		
+
 		mymap.values();
-		
+
 		Map<String, String> map = new HashMap<>();
 		map.put("key1", "value1");
-		
-		int n = 512;
+
+		int n1 = 512;
 		int hash = 1232131072;
 		int hash1 = 1534534534;
-		System.out.println((n - 1) & hash);
-		System.out.println((n - 1) & hash1);
-		
+		System.out.println((n1 - 1) & hash);
+		System.out.println((n1 - 1) & hash1);
+
 		System.out.println(spread(hash));
 		System.out.println(spread(hash1));
+
+		int initialCapacity = 16;
+		int concurrencyLevel = 16;
+		float loadFactor = 0.75f;
+		if (initialCapacity < concurrencyLevel) // Use at least as many bins
+			initialCapacity = concurrencyLevel; // as estimated threads
+		long size = (long) (1.0 + (long) initialCapacity / loadFactor);
+		int cap = (size >= (long) MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : tableSizeFor((int) size);
+		System.out.println(cap);
 		
-		System.out.println(1 << 30);
-		System.out.println(32 >> 1);
-		System.out.println(32 >>> 1);
-		System.out.println(1 << 30 >>> 1);
-		
+		int n = 64;
+		int NCPU = 1;
+		int stride = (NCPU > 1) ? (n >>> 3) / NCPU : n;
+		System.out.println(stride);
+
 		Map<String, String> ccHashMap = new ConcurrentHashMap<>();
 		ccHashMap.put("key2", "value2");
-		
+
 	}
 }
