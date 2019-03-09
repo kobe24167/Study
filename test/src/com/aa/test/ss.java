@@ -17,5 +17,16 @@ public class ss {
 		}
 		int s = historyRecordService.addRecord(historyRecordModel);
 		return s;
+		
+		
+		<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+	</dependency>
+	
+	<dependency>
+	<groupId>org.apache.commons</groupId>
+	<artifactId>commons-lang3</artifactId>
+</dependency>
 	}
 }

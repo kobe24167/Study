@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class IpAdrressUtil {
     /**
-     * èŽ·å–Ipåœ°å€
+     * »ñÈ¡IpµØÖ·
      * @param request
      * @return
      */
@@ -18,7 +18,7 @@ public class IpAdrressUtil {
         String Xip = request.getHeader("X-Real-IP");
         String XFor = request.getHeader("X-Forwarded-For");
         if(StringUtils.isNotEmpty(XFor) && !"unKnown".equalsIgnoreCase(XFor)){
-            //å¤šæ¬¡åå‘ä»£ç†åŽä¼šæœ‰å¤šä¸ªipå€¼ï¼Œç¬¬ä¸€ä¸ªipæ‰æ˜¯çœŸå®žip
+            //¶à´Î·´Ïò´úÀíºó»áÓÐ¶à¸öipÖµ£¬µÚÒ»¸öip²ÅÊÇÕæÊµip
             int index = XFor.indexOf(",");
             if(index != -1){
                 return XFor.substring(0,index);
@@ -59,7 +59,7 @@ public class IpAdrressUtil {
             if(ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {  
                 ipAddress = request.getRemoteAddr();  
                 if(ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")){  
-                    //æ ¹æ®ç½‘å¡å–æœ¬æœºé…ç½®çš„IP  
+                    //¸ù¾ÝÍø¿¨È¡±¾»úÅäÖÃµÄIP  
                     InetAddress inet=null;  
                     try {  
                         inet = InetAddress.getLocalHost();  
@@ -69,7 +69,7 @@ public class IpAdrressUtil {
                     ipAddress= inet.getHostAddress();  
                 }  
             }  
-            //å¯¹äºŽé€šè¿‡å¤šä¸ªä»£ç†çš„æƒ…å†µï¼Œç¬¬ä¸€ä¸ªIPä¸ºå®¢æˆ·ç«¯çœŸå®žIP,å¤šä¸ªIPæŒ‰ç…§','åˆ†å‰²  
+            //¶ÔÓÚÍ¨¹ý¶à¸ö´úÀíµÄÇé¿ö£¬µÚÒ»¸öIPÎª¿Í»§¶ËÕæÊµIP,¶à¸öIP°´ÕÕ','·Ö¸î  
             if(ipAddress!=null && ipAddress.length()>15){ //"***.***.***.***".length() = 15  
                 if(ipAddress.indexOf(",")>0){  
                     ipAddress = ipAddress.substring(0,ipAddress.indexOf(","));  
@@ -79,9 +79,9 @@ public class IpAdrressUtil {
     }  
 	
 	public static String getAddresses(String content) throws UnsupportedEncodingException {
-		// è¿™é‡Œè°ƒç”¨pconlineçš„æŽ¥å£
+		// ÕâÀïµ÷ÓÃpconlineµÄ½Ó¿Ú
 		String urlStr = "http://ip.ws.126.net/ipquery?ip=";
-		// ä»Žhttp://whois.pconline.com.cnå–å¾—IPæ‰€åœ¨çš„çœå¸‚åŒºä¿¡æ¯
+		// ´Óhttp://whois.pconline.com.cnÈ¡µÃIPËùÔÚµÄÊ¡ÊÐÇøÐÅÏ¢
 		
 		String returnStr = HttpConfig.get(urlStr+content);
 		if (returnStr != null && returnStr.indexOf("\"") >= 0) {
