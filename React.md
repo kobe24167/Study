@@ -1,5 +1,6 @@
 #React 搭建
   * 安装node,vscode
+  * npm config set registry http://registry.npm.taobao.org/
   * 执行npm install create-react-app -g
   * create-react-app demo1
   * cd demo1
