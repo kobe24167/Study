@@ -69,6 +69,9 @@
 	具体请看[链接](https://blog.csdn.net/varyall/article/details/81283231)[链接2](http://www.importnew.com/28263.html)
 ##  concurrencyLevel 并发数， JDK_7 最多可以同时支持 16 个线程并发写，JDK_8
 
+## put过程
+## get过程
+
 ##  数据结构：
 	数组
 	链表

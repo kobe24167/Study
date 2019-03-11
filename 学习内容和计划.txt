@@ -1,71 +1,71 @@
-����ְ��
-1������ϵͳ�ܹ���ơ�
-2���������ģ��ı��빤�����ܸ��ݹ�˾���мܹ�������ϵͳ��
-3����д��������Ŀ�ĵ�����������Ŀ�����еļ������⡣
-4����֤��Ŀ���ȣ��ܽ���Ŀ���飬���ɰ�����ʵ�־��鹲����
+工作职责
+1、参与系统架构设计。
+2、参与核心模块的编码工作，能根据公司现有架构开发新系统。
+3、编写与整理项目文档，参与解决项目开发中的技术难题。
+4、保证项目进度，总结项目经验，归纳案例，实现经验共享。
 
-��ְ�ʸ�
-1�����Ƽ�����ѧ����������������רҵ��
-2������5��JAVA/J2EE�������飬��ͨOO��UML��AOP��
-3����������J2EE����J2EE�ܹ���ȫ���˽⣬��������׼ȷ����Ϥ���õ�J2EEӦ��ƽ̨�ļܹ�����Ϥ�������(Spring/MyBatis/Dubbo��)��
-4����Ϥ�����ճ������ģʽ���Ը��ֿ�Դ�Ŀ�ܵ���������˽⣬�Կ�ܱ����й��������ع��߿����ȿ��ǣ��зḻ�����ܵ��ŵľ��飻�߱����õ�ʶ������ͨ�ÿ�ܼ�ģ����������зֲ�ʽϵͳ����Ŀ������顣���ڷֲ�ʽϵͳ����ơ�������ʵ���н�Ϊ�ḻ���飻
-5����ͨ�м��������ṹ��ƣ����ٲμӹ�2-3������J2EE����Ŀ������
-6����ϤMySQL���ݿ⣬����һ����SQL�Ż���ʶ; �ḻ��Tomcat��Jetty��Ӧ�÷�����ʵʩ���飻
-7����ϤLinux����ϵͳ���ܹ�����ʹ�û�����Console�������������⣻
-8�������飬�ᰮ�����������õļƻ�����ͨ����֯Э�����������Ա�����������ǿ���߼�����������Ӧ�����������õ��ŶӺ�������
-9����Dubbo��ZK��ES��ELK��ؾ��������ȿ���
+任职资格
+1、本科及以上学历，计算机或其相关专业；
+2、至少5年JAVA/J2EE开发经验，精通OO、UML、AOP；
+3、熟练掌握J2EE，对J2EE架构有全面了解，概念清晰准确；熟悉常用的J2EE应用平台的架构，熟悉技术框架(Spring/MyBatis/Dubbo等)，
+4、熟悉并掌握常用设计模式；对各种开源的框架等有深入的了解，对框架本身有过开发或重构者可优先考虑；有丰富的性能调优的经验；具备良好的识别和设计通用框架及模块的能力，有分布式系统方面的开发经验。对于分布式系统的设计、开发、实现有较为丰富经验；
+5、精通中间层的软件结构设计，至少参加过2-3个大型J2EE的项目开发；
+6、熟悉MySQL数据库，具有一定的SQL优化意识; 丰富的Tomcat、Jetty等应用服务器实施经验；
+7、熟悉Linux操作系统，能够熟练使用基本的Console命令解决线上问题；
+8、有热情，酷爱技术，有良好的计划、沟通、组织协调能力、语言表达能力；较强的逻辑分析能力和应变能力；良好的团队合作精神；
+9、有Dubbo、ZK、ES、ELK相关经验者优先考虑
 
 
 
-4���ѧϰʱ�䣬Ŀ���õ�offer
+4天的学习时间，目标拿到offer
 
-ѧϰ������
-1.Ҫ��ͨ���ʲ�ס
-2.ѧϰ�Ŀ�
-3.Dubbo֪����ô��
-4.��ʱ�俴ԭ��
+学习的内容
+1.要精通，问不住
+2.学习的快
+3.Dubbo知道怎么用
+4.有时间看原理
 
 dubbo
 java
 spring
-OO��UML��AOP
+OO、UML、AOP
 
-�˽�
-�ֲ�ʽ
-�м�� 
-Console����
+了解
+分布式
+中间件 
+Console命令
 ZK
 ES
 ELK
 
-�һ��΢������
-ʹ��zookeeper
-ʹ��dubbo
-ʹ��zk
-ѧϰes
-�es
-ʹ��es
+搭建一套微服务框架
+使用zookeeper
+使用dubbo
+使用zk
+学习es
+搭建es
+使用es
 
 
-��Ŀ�ƻ���
-��¼���ܣ�����΢�ŵ�¼����һ�׻�������¼����
-�ֻ��ţ���֤�룬���䣬ע��
-���룬�ֻ���̬���¼
-��ά���¼
-dubbo����ӿڵ���
-kafka��Ⱥ
-zipkin���
-elk��¼��־
-���ݿ�mysql��Ⱥ
-��д���룬����
-redis��¼��¼����
-redis��¼session
-��ؽڵ�״̬���б���
-ѹ�����Դ
+项目计划：
+登录功能，仿照微信登录，做一套互联网登录功能
+手机号，验证码，邮箱，注册
+密码，手机动态码登录
+二维码登录
+dubbo服务接口调用
+kafka集群
+zipkin检测
+elk记录日志
+数据库mysql集群
+读写分离，主备
+redis记录登录次数
+redis记录session
+监控节点状态，有报错
+压力测试搭建
 
-ʱ��һ��
+时间一周
 
-login���ݿ����
+login数据库设计
 id
 mail
 name
@@ -78,7 +78,43 @@ last_login
 open_id
 union_id
 
-git����
+
+redis的分布式缓存、分布式锁运用（两节课）
+缓存的用法
+redis的主从、高可用模式配置与原理
+redis的五种基本类型详解与运用
+redis实现周排行榜、热点排行
+redis的分布式锁运用与项目实例分析
+
+权限框架shiro介绍与使用
+shiro详细架构讲解
+shiro认证流程与原理分析
+spring boot集成shiro、并实现分布式
+renren-fast项目的授权模块分析
+
+基于Spring Security OAuth2.0实现单点登录SSO
+OAuth2.0协议介绍
+spring security的认证流程与使用
+基于cookie和token两种模式的单点登录实现与讲解
+SpringBoot集成Spring Security oauth2运用
+综合开源项目讲解使用
+
+tomcat的整体架构介绍与session共享方案
+Http server与tomcat
+tomcat的整体架构与组件解读
+tomcat的基本工作流程
+tomcat的性能优化
+tomcat基于插件实现session共享
+
+消息队列RabbitMq的使用
+消息与消息队列
+RabbitMq安装与基本命令
+RabbitMq的五种队列模式分析与代码实战
+消息确认机制（事务+Confirm）详解
+Spring boot集成RabbitMq
+
+
+git命令
 git add .
 git commit -m "Initial commit"
 git push -u origin master

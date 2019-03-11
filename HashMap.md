@@ -10,6 +10,9 @@
 	数组
 	链表
 	红黑树
+## put过程
+	![put过程](/home/picture/1.png)
+## get过程
 ##  key可以为空的,hash值为0，所以放到第0位上
 ```java
 	static final int hash(Object key) {

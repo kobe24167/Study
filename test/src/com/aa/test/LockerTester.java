@@ -10,6 +10,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.StampedLock;
 
 public class LockerTester {
 	private static int count;
@@ -42,7 +47,7 @@ public class LockerTester {
 
 	public static Map<String, String> successMap = new LinkedHashMap<>();
 	public static Map<String, String> failedMap = new LinkedHashMap<>();
-	
+
 	private volatile static int successCount;
 	private volatile static int failedCount;
 
@@ -59,7 +64,7 @@ public class LockerTester {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void synchronizedTester() {
 		for (int i = 0; i < 50; i++) {
 			taskMap.put("taskId " + i, "comand " + i);
 		}
@@ -85,7 +90,7 @@ public class LockerTester {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
+
 				if (result == 1) {
 					successCount++;
 					synchronized (successMap) {
@@ -113,5 +118,104 @@ public class LockerTester {
 		}
 		executor.shutdown();
 		System.out.println("resultCount: " + resultCount);
+	}
+
+	public static void main(String[] args) {
+		testMethod();
+	}
+
+	private static Lock lock = new ReentrantLock();
+	private static Condition condition = lock.newCondition();
+
+	public static void testMethod() {
+		Task1 task = new Task1(lock, condition);
+		Thread thread1 = new Thread(task);
+		thread1.start();
+		try {
+			lock.lock();
+			System.out.println("开始wait");
+			condition.await();
+			for (int i = 0; i < 5; i++) {
+				System.out.println("ThreadName=" + Thread.currentThread().getName() + (" " + (i + 1)));
+			}
+		} catch (InterruptedException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	private static ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+
+	public static void reentrantReadWriteLockTester() {
+		reentrantReadWriteLock.writeLock().lock();
+		reentrantReadWriteLock.writeLock().newCondition();
+		reentrantReadWriteLock.writeLock().unlock();
+		
+		//readLock 和 writeLock 是互斥锁
+		reentrantReadWriteLock.readLock().lock();
+		reentrantReadWriteLock.readLock().unlock();
+
+	}
+
+	private static StampedLock stampedLock = new StampedLock();
+
+	public static void stampedLockTester() {
+		long stamp;
+		//乐观读锁
+		stamp = stampedLock.tryOptimisticRead(); //获得一个乐观读锁
+		if (!stampedLock.validate(stamp)) { //检查发出乐观读锁后同时是否有其他写锁发生？
+			stamp = stampedLock.readLock(); //如果没有，我们再次获得一个读悲观锁
+			stampedLock.unlockRead(stamp); //解锁
+		}
+		
+		// 这里可以使用乐观读锁替换
+        stamp = stampedLock.readLock();
+        try {
+            // 如果当前点在原点则移动
+            while (true) {
+                // 尝试将获取的读锁升级为写锁
+                long ws = stampedLock.tryConvertToWriteLock(stamp);
+                // 升级成功，则更新票据，并设置坐标值，然后退出循环
+                if (ws != 0L) {
+                    stamp = ws;
+                }
+                else {
+                    // 读锁升级写锁失败则释放读锁，显示获取独占写锁，然后循环重试
+                	stampedLock.unlockRead(stamp);
+                    stamp = stampedLock.writeLock();
+                }
+            }
+        } finally {
+        	stampedLock.unlock(stamp);
+        }
+		
+	}
+
+}
+
+class Task1 implements Runnable {
+
+	Lock lock;
+	Condition condition;
+
+	public Task1(Lock lock, Condition condition) {
+		this.lock = lock;
+		this.condition = condition;
+	}
+
+	@Override
+	public void run() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		lock.lock();
+		System.out.println("开始signal");
+		condition.signal();
+		lock.unlock();
 	}
 }
