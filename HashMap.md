@@ -10,7 +10,8 @@
 	数组
 	链表
 	红黑树
-## ![put过程](https://github.com/kobe24167/Study/blob/master/images/HashMap_put.jpg)
+##  put过程
+	![put过程](https://github.com/kobe24167/Study/blob/master/images/HashMap_put.jpg)
 ## get过程
 ##  key可以为空的,hash值为0，所以放到第0位上
 ```java
@@ -26,6 +27,10 @@
 ```
 ##  扩容方法: n << 1,最多容纳Int.max个数组
 	插入第12个，超出阈值（16*0.75），开始扩容
+	扩容过程
+	![扩容过程](https://github.com/kobe24167/Study/blob/master/images/HashMap_resize.jpg)
+	init过程
+	![init过程](https://github.com/kobe24167/Study/blob/master/images/HashMap_init.jpg)
 ##  加载因子大小问题
 	越大，链表或树上的节点越多，越难查找
 	越小，数组空的越多
