@@ -10,6 +10,8 @@
 ## 锁优化
 减少锁的时间，减少锁的粒度
 
+写写例子，尤其是StampedLock，不然会忘
+
 ##  synchronized的四种用法：
   * 修饰方法synchronized void method()
   * 修饰一个代码块synchronized(this) 指定要给某个对象加锁synchronized (object) {}

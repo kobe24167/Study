@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaReceiver {
 
-    @KafkaListener(topics = {"zhisheng"})
+    @KafkaListener(topics = {"test"})
     public void listen(ConsumerRecord<?, ?> record) {
 
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
