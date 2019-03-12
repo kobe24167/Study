@@ -63,7 +63,12 @@ redis记录session
 监控节点状态，有报错
 压力测试搭建
 
-时间一周
+性能测试，生产case，5秒循环产生多个User
+User塞到队列里，使用kafka or mq
+多个服务存数据库，写库一个，读库两个
+redis计数，jedis
+
+
 
 login数据库设计
 id
