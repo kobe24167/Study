@@ -5,13 +5,14 @@
   ```cmd
   sudo service sshd start
   ```
-  * 检测ip是否可用（ping的通，但是端口可能被封了）
-  检测国内端口是否被开启
+  * 检测ip是否可用（ping的通，但是端口不通，可能被封了）
+  ```
+  检测在国内端口是否open
   http://coolaf.com/tool/port
-  检测在国外端口是否开启
+  检测在国外端口是否open
   https://www.yougetsignal.com/tools/open-ports/
   如果国外开启，国内关闭表示ip被墙了，需要换一个ip，重新创建一个虚拟机
-
+  ```
   * 更新密码
   ```cmd
   passwd root
