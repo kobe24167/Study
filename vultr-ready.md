@@ -2,22 +2,20 @@
 [Vultr](https://www.vultr.com/)
   * 首先登陆，长密码输入起来好困难
   * 启动ssh
-	```cmd
-sudo service sshd start
-	```
+  ```cmd
+  sudo service sshd start
+  ```
   * 检测ip是否可用（ping的通，但是端口可能被封了）
-检测国内端口是否被开启
-http://coolaf.com/tool/port
-检测在国外端口是否开启
-https://www.yougetsignal.com/tools/open-ports/
-
-如果国外开启，国内关闭表示ip被墙了，需要换一个ip，重新创建一个虚拟机
+  检测国内端口是否被开启
+  http://coolaf.com/tool/port
+  检测在国外端口是否开启
+  https://www.yougetsignal.com/tools/open-ports/
+  如果国外开启，国内关闭表示ip被墙了，需要换一个ip，重新创建一个虚拟机
 
   * 更新密码
-	```cmd
-	passwd root
-	```
-45.77.215.187
+  ```cmd
+  passwd root
+  ```
 
   * 安装netstat
   ```cmd
