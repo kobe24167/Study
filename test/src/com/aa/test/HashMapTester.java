@@ -2,6 +2,7 @@ package com.aa.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,6 +25,9 @@ public class HashMapTester {
 
 		Map<String, String> ccHashMap1 = new ConcurrentHashMap<>(16, 0.75f, 50);
 		ccHashMap1.put("key2", "value2");
+		
+		LinkedHashMap<String, String> ccHashMap2 = new LinkedHashMap<>();
+		ccHashMap2.put("key2", "value2");
 	}
 
 	static final int HASH_BITS = 0x7fffffff; // usable bits of normal node hash
