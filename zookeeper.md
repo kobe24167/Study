@@ -17,3 +17,9 @@
 	Zookeeper AdminServer，默认使用8080端口
 	可以修改在zoo.cfg中修改AdminServer的端口：
 	admin.serverPort=2182
+## Eclipse插件安装
+	http://www.massedynamic.org/eclipse/updates/
+	[参考文章](https://blog.csdn.net/yelllowcong/article/details/78230026)
+## Install Docker Compose
+	https://docs.docker.com/compose/install/
+	
