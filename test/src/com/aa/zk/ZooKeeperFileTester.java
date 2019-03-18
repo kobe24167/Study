@@ -62,7 +62,7 @@ public class ZooKeeperFileTester {
 			@Override
 			public void process(WatchedEvent event) {
 				try {
-					System.out.println("持续监听/event/event003");
+					System.out.println("持续监听: "+event.getPath());
 					zk.getChildren(event.getPath(), this);
 				} catch (KeeperException e) {
 					// TODO Auto-generated catch block
@@ -77,6 +77,8 @@ public class ZooKeeperFileTester {
 		zk.create("/event/event003/m1", "message003".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 		zk.create("/event/event003/m2", "message003".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 		zk.create("/event/event003/m3", "message003".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+		zk.create("/event/event003/m4", "message003".getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+		zk.delete("/event/event003/m4", -1);
 	}
 
 	private static void deleteAll(ZooKeeper zk, String path) throws KeeperException, InterruptedException {

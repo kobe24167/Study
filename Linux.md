@@ -1,13 +1,14 @@
 # 记录常用的，搭建环境用到的Linux命令
 
 ## 解压包
+```
 tar -zxvf XXXX.tar.gz
-
+```
 ## 查看端口
 lsof -i:8000
 netstat -tunlp |grep 端口号
 
-##环境变量
+## 环境变量
 修改profile文件
 vim /etc/profile
 使其生效
