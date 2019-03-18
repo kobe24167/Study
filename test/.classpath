@@ -5,9 +5,10 @@
 	<classpathentry kind="lib" path="lib/zookeeper-3.4.12-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/zookeeper-3.4.12-sources.jar"/>
 	<classpathentry kind="lib" path="lib/zookeeper-3.4.12-tests.jar"/>
-	<classpathentry kind="lib" path="lib/zookeeper-3.4.12.jar"/>
+	<classpathentry kind="lib" path="lib/zookeeper-3.4.12.jar" sourcepath="lib/zookeeper-3.4.12-sources.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.7.25.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

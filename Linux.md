@@ -1,7 +1,11 @@
 # 记录常用的，搭建环境用到的Linux命令
 
-##解压包
+## 解压包
 tar -zxvf XXXX.tar.gz
+
+## 查看端口
+lsof -i:8000
+netstat -tunlp |grep 端口号
 
 ##环境变量
 修改profile文件
@@ -56,6 +60,13 @@ nginx -s reopen
 重启ZK服务:		./zkServer.sh restart
 待补充 zkCli
 
+## 使用docker stack deploy或docker-compose部署集群ZooKeeper
+创建目录/opt/docker-deploy
+创建文件(stack.yml)[https://github.com/kobe24167/Study/blob/master/stack.yml]
+命令：docker stack deploy -c stack.yml zookeeper
+或：docker-compose -f stack.yml up
+关闭：docker-compose down
+
 ## kafka
 启动		./kafka-server-start.sh /opt/kafka/config/server.properties
 停止 		./kafka-server-stop.sh
@@ -74,10 +85,21 @@ STORAGE_TYPE=mysql MYSQL_HOST=116.196.97.97 MYSQL_TCP_PORT=3306 MYSQL_DB=zipkin 
 ## 安装docker
 [参考文章](https://blog.csdn.net/achenyuan/article/details/80195401#linuxdockerCompose_388)
 
-## 安装docker
+## 安装docker-compose
 ### 官方步骤
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ### 使用pip安装
 pip install -U docker-compose
 docker-compose -version
 docker-compose -h
+
+
+【docker stack命令】
+
+根据compose文件或bundle文件创建stack
+docker stack deploy --compose-file docker-compose.yml vossibility
+docker stack deploy --bundle-file vossibility-stack.dab vossibility
+列出所有stack		docker stack ls
+列出stack中所有任务	docker stack ps
+删除stack 			docker stack rm
+列出stack中所有服务	docker stack services stack-name
