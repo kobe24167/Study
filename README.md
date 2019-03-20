@@ -25,8 +25,9 @@
   * [订单号的产生](https://github.com/kobe24167/Study/blob/master/Java/订单号.md)
   * [随机产生用户](https://github.com/kobe24167/Study/blob/master/Java/随机产生用户.md)
 
-## [Linux学习，包括一些搭建](https://github.com/kobe24167/Study/blob/master/Java/Linux.md)
-  
+## Linux
+  * [Linux学习，包括一些搭建](https://github.com/kobe24167/Study/blob/master/Linux.md)
+
 ## 环境搭建
   * [AWS初始搭建](https://github.com/kobe24167/Study/blob/master/环境搭建/AWS-ready.md)
   * [Vulter环境搭建](https://github.com/kobe24167/Study/blob/master/环境搭建/vultr-ready.md)
