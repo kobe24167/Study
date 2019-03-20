@@ -23,7 +23,7 @@
   yum install net-tools
   ```
   
-  * BBR 速度可以，也许不需要
+  * [BBR加速](https://www.centos.bz/2018/01/centos-7%E5%AE%89%E8%A3%85bbr%E6%95%99%E7%A8%8B/)
   
   * 防火墙开放端口
 ```cmd

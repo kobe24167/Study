@@ -24,6 +24,8 @@
   * 序列化
   * [订单号的产生](https://github.com/kobe24167/Study/blob/master/Java/订单号.md)
   * [随机产生用户](https://github.com/kobe24167/Study/blob/master/Java/随机产生用户.md)
+
+## [Linux学习，包括一些搭建](https://github.com/kobe24167/Study/blob/master/Java/Linux.md)
   
 ## 环境搭建
   * [AWS初始搭建](https://github.com/kobe24167/Study/blob/master/环境搭建/AWS-ready.md)
@@ -34,6 +36,6 @@
   * [SVN in docker](https://github.com/kobe24167/Study/blob/master/环境搭建/docker-svn.md)
   * [GitLab in docker](https://docs.gitlab.com/omnibus/docker/README.html)
   * [React](https://github.com/kobe24167/Study/blob/master/环境搭建/React.md)
-  * [Nginx](https://github.com/kobe24167/Study/blob/master/环境搭建/.md)
+  * [Nginx](https://github.com/kobe24167/Study/blob/master/环境搭建/Nginx.md)
   * [Memcached](https://github.com/kobe24167/Study/blob/master/环境搭建/Memcached.md)
   * Zipkin 在Linux文件中
