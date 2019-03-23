@@ -34,7 +34,9 @@
 ```
 创建目录/opt/docker-deploy
 创建文件(stack.yml)[https://github.com/kobe24167/Study/blob/master/stack.yml]
-命令：docker stack deploy -c stack.yml zookeeper
+启动：docker stack deploy -c stack.yml zookeeper
+停止：docker stack rm zookeeper
+
 或：docker-compose -f stack.yml up
 关闭：docker-compose down
 ```

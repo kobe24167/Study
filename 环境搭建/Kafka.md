@@ -22,3 +22,18 @@ zookeeper.connect=localhost:2181
 ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
 
 ```
+
+## [Kafka Manager in docker](https://hub.docker.com/r/hlebalbau/kafka-manager)
+```
+docker run -d -p 9000:9000 -e ZK_HOSTS="101.132.132.108:2181" hlebalbau/kafka-manager:stable -Dpidfile.path=/dev/null
+```
+## [Kafka Manager](https://github.com/yahoo/kafka-manager)
+```
+wget https://github.com/yahoo/kafka-manager/archive/1.3.3.23.zip
+tar -zxvf kafka-manager-1.3.3.23.tar.gz
+cd kafka-manager
+curl https://bintray.com/sbt/rpm/rpm > bintray-sbt-rpm.repo
+sudo mv bintray-sbt-rpm.repo /etc/yum.repos.d/
+sudo yum install sbt
+sbt -version
+```
