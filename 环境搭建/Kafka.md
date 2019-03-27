@@ -25,7 +25,7 @@ zookeeper.connect=localhost:2181
 
 ## [Kafka Manager in docker](https://hub.docker.com/r/hlebalbau/kafka-manager)
 ```
-docker run -d -p 9000:9000 -e ZK_HOSTS="101.132.132.108:2181" hlebalbau/kafka-manager:stable -Dpidfile.path=/dev/null
+docker run -d -p 9000:9000 -e ZK_HOSTS="116.196.97.97:2181" hlebalbau/kafka-manager:stable -Dpidfile.path=/dev/null
 ```
 ## [Kafka Manager](https://github.com/yahoo/kafka-manager)
 ```
