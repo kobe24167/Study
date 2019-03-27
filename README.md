@@ -13,6 +13,9 @@
   * 为什么使用Spring Boot之后快很多
   * [@Log实现](https://github.com/kobe24167/Study/tree/master/exmaple/src/main/java/com/exmaple/annotation)
   * [Spring Boot上传文件大小问题](https://github.com/kobe24167/Study/blob/master/Spring/SpringBootFileSize.md)
+  * Spring Boot启动读取配置文件并创建Jedis连接池（starter）
+  * 异常捕获ExceptionHandler，使用@ControllerAdvice
+  * 使用Dubbo异常怎么办
 
 ## Java
   * [Java1.8_HashMap源码学习](https://github.com/kobe24167/Study/blob/master/Java/HashMap.md)
