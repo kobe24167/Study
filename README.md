@@ -14,7 +14,7 @@
   * [@Log实现](https://github.com/kobe24167/Study/tree/master/exmaple/src/main/java/com/exmaple/annotation)
   * [Spring Boot上传文件大小问题](https://github.com/kobe24167/Study/blob/master/Spring/SpringBootFileSize.md)
   * Spring Boot启动读取配置文件并创建Jedis连接池（starter）
-  * 异常捕获ExceptionHandler，使用@ControllerAdvice
+  * 异常捕获ExceptionHandler，使用@ControllerAdvice[例子](https://github.com/kobe24167/Study/blob/master/Spring/ExceptionHandler)
   * 使用Dubbo异常怎么办
 
 ## Java
@@ -27,6 +27,10 @@
   * 序列化
   * [订单号的产生](https://github.com/kobe24167/Study/blob/master/Java/订单号.md)
   * [随机产生用户](https://github.com/kobe24167/Study/blob/master/Java/随机产生用户.md)
+  
+## 数据库
+  * [MySql](https://github.com/kobe24167/Study/blob/master/Database/MySql)
+
 
 ## Linux
   * [Linux学习，包括一些搭建](https://github.com/kobe24167/Study/blob/master/Linux.md)
