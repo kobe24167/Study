@@ -1,3 +1,0 @@
-info clients可以查看当前的redis连接数。
-
-config get maxclients 可以查询redis允许的最大连接数。
