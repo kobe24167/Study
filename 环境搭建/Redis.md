@@ -21,6 +21,17 @@ redis> get foo
 ./redis-cli
 auth "password"
 shurdown
+
+查看某个key序列化后的长度
+192.168.0.112:6379> debug object myhash
+Value at:0x7f005c6920a0 refcount:1 encoding:ziplist serializedlength:36 lru:3341677 lru_seconds_idle:2
+
+输出项说明：
+Value at：key的内存地址
+refcount：引用次数
+encoding：编码类型
+serializedlength：序列化长度
+lru_seconds_idle：空闲时间
 ```
 
 ```

@@ -9,6 +9,15 @@ tar -zxvf XXXX.tar.gz
 lsof -i:8000
 netstat -tunlp |grep 端口号
 ```
+## Linux分析进程占用内存最高和占用CPU最高
+```
+查看占用内存最高的5个进程
+ps aux | sort -k4nr | head -n 5
+查看占用cpu最高的5个进程
+ps aux | sort -k3nr | head -n 5
+查看所有信息使用命令
+ps aux
+```
 ## 环境变量
 ```
 修改profile文件
