@@ -12,3 +12,9 @@
     "emmet.triggerExpansionOnTab": true
   * npm start
   * localhost:3000
+  * 修改启动端口
+  ```
+  "scripts": {
+    "start": "set port=3001 && react-scripts start ",
+    }
+  ```
