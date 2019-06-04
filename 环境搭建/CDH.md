@@ -1,5 +1,5 @@
   # Hadoop集成环境CDH
-安装到docker中
+安装到docker中,但是这样是单机，要搭建集群
 ```
 docker run \
  -id \
@@ -11,4 +11,10 @@ docker run \
  -p 7187:7187 -p 11000:11000 -t -p 8888:80 \
  --net host --name=mycdh \
  cloudera/quickstart /usr/bin/docker-quickstart
+ 
+ #进入到镜像中，启动cloudera-manager
+ docker exec -it mycdh bash
+ ./home/cloudera/cloudera-manager --enterprise
+ 
  ```
+ 
