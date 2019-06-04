@@ -1,6 +1,8 @@
   # Hadoop集成环境CDH
 安装到docker中,但是这样是单机，要搭建集群
 ```
+docker pull cloudera/quickstart
+
 docker run \
  -id \
  --hostname=quickstart.cloudera \
