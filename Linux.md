@@ -9,6 +9,12 @@ tar -zxvf XXXX.tar.gz
 lsof -i:8000
 netstat -tunlp |grep 端口号
 ```
+## ssh超时断连，解决办法
+```
+编辑服务器 /etc/ssh/sshd_config，最后增加
+ClientAliveInterval 60
+ClientAliveCountMax 1
+```
 ## Linux分析进程占用内存最高和占用CPU最高
 ```
 查看占用内存最高的5个进程
