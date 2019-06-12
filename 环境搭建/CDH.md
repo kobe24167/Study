@@ -18,7 +18,7 @@ docker run \
  
  #进入到镜像中，启动cloudera-manager
  docker exec -it mycdh bash
- ./home/cloudera/cloudera-manager --enterprise
+ ./home/cloudera/cloudera-manager --enterprise --force
  
  ```
  
