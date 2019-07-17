@@ -49,3 +49,6 @@
   * [Memcached](https://github.com/kobe24167/Study/blob/master/环境搭建/Memcached.md)
   * Zipkin 在Linux文件中
   * [Maven打包](https://github.com/kobe24167/Study/blob/master/环境搭建/mvn.md)
+
+## Python学习
+  * [图片转文字](https://github.com/kobe24167/Study/blob/master/图片转文字/README.md)
