@@ -3,7 +3,7 @@
 docker exec -i 69d1 bash
 安装vi
 apt-get update
-apt-get install vi
+apt-get install vim
 
 
 docker network
