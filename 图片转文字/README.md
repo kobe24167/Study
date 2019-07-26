@@ -35,6 +35,9 @@ flask工程路径
 flask启动
 export FLASK_APP=manager.py
 python3 -m flask run -p 8080 --host 0.0.0.0
+后台启动，退出命令行不停服务器（nohup COMMAND &）
+nohup python3 -m flask run -p 8080 --host 0.0.0.0 &
+exit
 ```
 #基于react的ant design控件
 ```
