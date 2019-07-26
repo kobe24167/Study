@@ -33,6 +33,7 @@ pip install flask-sqlalchemy
 flask工程路径
 /home/code/flaskBlue/
 flask启动
+export FLASK_APP=manager.py
 python3 -m flask run -p 8080 --host 0.0.0.0
 ```
 #基于react的ant design控件
