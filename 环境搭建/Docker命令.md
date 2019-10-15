@@ -1,4 +1,6 @@
 ```
+启动docker服务
+systemctl start docker
 进入容器
 docker exec -i 69d1 bash
 安装vi
