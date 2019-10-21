@@ -42,7 +42,14 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         start, index, end = 0, 0, len(nums)-1
-        while expression:
-            pass
+        while index < end:
+            if nums[index] == 0:
+                pass
+            elif nums[index] == 2:
+                pass
+            else:
+                index += 1
 # @lc code=end
 
+s = Solution()
+print(s.findSubstring(s="wordgoodgoodgoodbestword", words=["foo","bar"]))
