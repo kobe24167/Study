@@ -67,7 +67,8 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    # 'quotesbot.pipelines.QuotesbotPipeline': 300,
    # 'quotesbot.pipelines.CityPipeline': 300,
-   'quotesbot.pipelines.StationPipeline': 300,
+   # 'quotesbot.pipelines.StationPipeline': 300,
+   'quotesbot.pipelines.TimetablePipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

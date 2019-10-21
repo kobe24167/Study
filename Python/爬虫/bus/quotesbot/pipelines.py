@@ -65,3 +65,50 @@ class StationPipeline(object):
         session.close()
 
         return item
+
+class Path(Base):
+    # 表的名字:
+    __tablename__ = 'path'
+    # 表的结构:
+    path = Column(String(255), primary_key=True)
+    start = Column(String(255))
+    to = Column(String(255))
+
+class StationPipeline(object):
+
+    def process_item(self, item, spider):
+        session = DBSession()
+        # 创建新User对象:
+        path = Path(start=item['start'],to=item['to'],path=item['path'])
+        # 添加到session:
+        session.add(path)
+        # 提交即保存到数据库:
+        session.commit()
+        # 关闭session:
+        session.close()
+
+        return item
+
+class Timetable(Base):
+    # 表的名字:
+    __tablename__ = 'timetable'
+    # 表的结构:
+    id = Column(Integer(), primary_key=True)
+    start = Column(String(255))
+    line_name = Column(String(255))
+    data = Column(String(2000))
+
+class TimetablePipeline(object):
+
+    def process_item(self, item, spider):
+        session = DBSession()
+        # 创建新User对象:
+        tt = Timetable(start=item['start'],line_name=item['line_name'],data=item['data'])
+        # 添加到session:
+        session.add(tt)
+        # 提交即保存到数据库:
+        session.commit()
+        # 关闭session:
+        session.close()
+
+        return item

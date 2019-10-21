@@ -21,17 +21,16 @@ class StationCSSSpider(scrapy.Spider):
     # 创建DBSession类型:
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
-    citys = session.query(City).all()
+    citys = session.query(City).order_by(City.en).offset(0).all()
     cityLen = len(citys)
-    print(cityLen)
     name = "station"
     start_urls = [
-        'http://m.checi.org/city/laifeng/',
+        'http://m.checi.org/city/lixian/',
     ]
     page_num = 0
     def parse(self, response):
         for s in response.xpath('//a[@class="am-btn am-btn-primary am-radius am-btn-block"]').getall():
-            print(s)
+            print(StationCSSSpider.page_num)
             path = s[s.index("href=\"")+6:s.index("/\">")+1]
             name = s[s.index(">")+1:s.index("<", 2)]
             yield {
@@ -44,4 +43,3 @@ class StationCSSSpider(scrapy.Spider):
         if StationCSSSpider.page_num < StationCSSSpider.cityLen:
             next_page_url = 'http://m.checi.org'+StationCSSSpider.citys[StationCSSSpider.page_num].path
             yield scrapy.Request(response.urljoin(next_page_url))
-
