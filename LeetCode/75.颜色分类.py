@@ -34,7 +34,6 @@
 # 
 # 
 #
-from typing import List
 # @lc code=start
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
@@ -42,14 +41,16 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         start, index, end = 0, 0, len(nums)-1
-        while index < end:
+        while index <= end:
             if nums[index] == 0:
-                pass
+                nums[start], nums[index] = nums[index], nums[start]
+                start += 1
+                index += 1
             elif nums[index] == 2:
-                pass
+                nums[index], nums[end] = nums[end], nums[index]
+                end -= 1
             else:
                 index += 1
+        return nums
 # @lc code=end
 
-s = Solution()
-print(s.findSubstring(s="wordgoodgoodgoodbestword", words=["foo","bar"]))
