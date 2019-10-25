@@ -9,6 +9,10 @@ tar -zxvf XXXX.tar.gz
 lsof -i:8000
 netstat -tunlp |grep 端口号
 ```
+## 查找文件
+```
+find / -name "*.c"
+```
 ## ssh超时断连，解决办法
 ```
 编辑服务器 /etc/ssh/sshd_config，最后增加
