@@ -52,7 +52,8 @@ for t in all:
     t.duration = kv.get("耗时")
     t.distance = kv.get("里程")
     t.desc = kv.get("备注")
-    
+    if t.id % 1000 == 0:
+        session.commit()
     # 提交即保存到数据库:
 session.commit()
 
