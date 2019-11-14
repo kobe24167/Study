@@ -44,6 +44,7 @@ def clean(data):
 all = session.query(Timetable).order_by(Timetable.id).offset(0).all()
 for t in all:
     data = t.data
+    print(t.id)
     kv = clean(data)
     t.time = kv.get("时间")
     t.price = kv.get("车费")
