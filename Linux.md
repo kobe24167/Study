@@ -13,6 +13,10 @@ netstat -tunlp |grep 端口号
 ```
 find / -name "*.c"
 ```
+## 端口转发
+```
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 9999
+```
 ## ssh超时断连，解决办法
 ```
 编辑服务器 /etc/ssh/sshd_config，最后增加
