@@ -7,6 +7,9 @@ docker exec -it 69d1 bash
 apt-get update
 apt-get install vim
 
+下载镜像并运行
+docker pull spellrun/tensorflow2-cpu
+docker run -t -i spellrun/tensorflow2-cpu
 
 docker network
 docker network ls
