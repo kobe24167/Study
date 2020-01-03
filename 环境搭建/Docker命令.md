@@ -20,3 +20,7 @@ docker network create cluster --subnet=192.168.0.0/16
 docker network inspect cluster
 docker network rm cluster
 ```
+ ##常用镜像
+```
+docker run --privileged --name oracle11g -p 1521:1521 -v /opt/database/install jaspeen/oracle-11g
+```
