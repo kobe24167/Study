@@ -1,0 +1,1 @@
+java -jar pdf2jpg.jar -i "C:/Users/wbliang/Documents/GitHub/Study/Python/example/img/1.pdf" -o "C:/Users/wbliang/Documents/GitHub/Study/Python/example/img/output" -d 300 -p ALL

@@ -73,6 +73,27 @@ vi /usr/bin/yum
 vi /usr/libexec/urlgrabber-ext-down
 将 #!/usr/bin/python 改为 #!/usr/bin/python3.7，保存退出即可。
 ```
+### 卸载安装JDK
+```
+卸载openjdk
+1) 查看openjdk的包
+# rpm -qa | grep openjdk
+# rpm -qa | grep java
+2）卸载
+#rpm -qa| grep openjdk|xargs rpm -e --nodeps
+#rpm -e --nodeps java-*-gcj-*.x86_64
+
+安装sun的jdk
+到sun的官方网站下载jdk的rpm包，然后安装：
+#rpm -ivh jdk-*.rpm
+配置环境变量
+可修改配置文件/etc/profile，在该文件最后添加：
+export JAVA_HOME=/usr/java/jdk1.7.0_15
+export PATH=$PATH:$JAVA_HOME/bin
+export CLASSPATH=.:$JAVA_HOME/lib
+source /etc/profile
+使得配置生效。
+```
 ## Tomcat启动
 ```
 /opt/apache-tomcat-8.5.38/bin/shartup.sh
