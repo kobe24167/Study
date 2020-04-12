@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class WxChatImgRevert2 {
 
     public static void main(String[] args) {
-        String path = "C:\\Users\\kobe2\\Documents\\WeChat Files\\kobe24167\\FileStorage";
+        String path = "C:\\Users\\kobe2\\Documents\\WeChat Files\\kobe24167";
         String targetPath = "E:\\temp";
         convert(path, targetPath);
     }
