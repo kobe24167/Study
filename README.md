@@ -52,3 +52,4 @@
 
 ## Python学习
   * [图片转文字](https://github.com/kobe24167/Study/blob/master/图片转文字/README.md)
+  * [免费的人脸比对识别](https://github.com/ageitgey/face_recognition)
